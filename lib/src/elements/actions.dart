@@ -26,7 +26,7 @@ class _ActionSetState extends State<ActionSet> with AdaptiveElementMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: actions);
+    return Wrap(spacing: 8, children: actions);
   }
 
   Widget _getAction(Map<String, dynamic> map) {
@@ -68,23 +68,16 @@ class _IconButtonActionState extends State<IconButtonAction>
 
   @override
   Widget build(BuildContext context) {
-    Widget result = RaisedButton(
-      onPressed: onTapped,
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.center, children: [Text(title)]),
-    );
+    Widget result = RaisedButton(onPressed: onTapped, child: Text(title));
 
     if (iconUrl != null) {
       result = RaisedButton.icon(
-        onPressed: onTapped,
-        icon: Image.network(
-          iconUrl,
-          height: 36.0,
-        ),
-        label: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text(title)]),
-      );
+          onPressed: onTapped,
+          icon: Image.network(
+            iconUrl,
+            height: 36.0,
+          ),
+          label: Text(title));
     }
     return result;
   }
@@ -122,7 +115,7 @@ class _AdaptiveActionShowCardState extends State<AdaptiveActionShowCard>
     return RaisedButton(
       onPressed: onTapped,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(title),
           AdaptiveCardElementState.of(context).currentCardId == id
@@ -169,13 +162,7 @@ class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit>
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: widget.color,
-      onPressed: onTapped,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(title)],
-      ),
-    );
+        color: widget.color, onPressed: onTapped, child: Text(title));
   }
 
   @override
