@@ -66,9 +66,11 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
       allActions = List<Map>.from(widget.adaptiveMap["actions"])
           .map((adaptiveMap) => widgetState.cardRegistry.getAction(adaptiveMap))
           .toList();
+
       showCardActions = List<AdaptiveActionShowCard>.from(allActions
           .where((action) => action is AdaptiveActionShowCard)
           .toList());
+
       cards = List<Widget>.from(showCardActions
           .map((action) =>
               widgetState.cardRegistry.getElement(action.adaptiveMap["card"]))

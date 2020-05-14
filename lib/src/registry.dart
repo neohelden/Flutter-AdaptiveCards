@@ -102,6 +102,8 @@ class CardRegistry {
         return AdaptiveContainer(adaptiveMap: map);
       case "TextBlock":
         return AdaptiveTextBlock(adaptiveMap: map);
+      case "ActionSet":
+        return ActionSet(adaptiveMap: map);
       case "AdaptiveCard":
         return AdaptiveCardElement(adaptiveMap: map);
       case "ColumnSet":

@@ -79,6 +79,7 @@ flutter:
     - lib/fact_set/example1
     - lib/image_set/example1
     - lib/image_set/example2
+    - lib/action_set/example1
     - lib/action_open_url/example1
     - lib/action_open_url/example2
     - lib/action_submit/example1

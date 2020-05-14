@@ -7,6 +7,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 
 import 'about_page.dart';
 import 'action_open_url/action_open_url_examples_page.dart';
+import 'action_set/action_set_example_page.dart';
 import 'action_show_card/action_show_card_examples_page.dart';
 import 'action_submit/action_submit_examples_page.dart';
 import 'column/column_examples_page.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
             "Action.OpenUrl": (context) => ActionOpenUrlPage(),
             "Action.Submit": (context) => ActionSubmitPage(),
             "Action.ShowCard": (context) => ActionShowCardPage(),
+            "ActionSet": (context) => ActionSetPage(),
             "Input.Text": (context) => InputText(),
             "Input.Number": (context) => InputNumber(),
             "Media": (context) => MediaPage(),
@@ -111,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
           getButton("Media"),
           Divider(),
           getRow(["Action.OpenUrl", "Action.Submit", "Action.ShowCard"]),
+          getButton("ActionSet"),
           Divider(),
           getButton("Container"),
           getButton("FactSet"),
