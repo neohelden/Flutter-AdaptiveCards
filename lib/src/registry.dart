@@ -43,7 +43,6 @@ class CardRegistry {
       {this.removedElements = const [],
       this.addedElements = const {},
       this.addedActions = const {},
-      this.listView,
       this.supportMarkdown = true});
 
   /// Provide custom elements to use.
@@ -59,9 +58,7 @@ class CardRegistry {
   // markdown support doesn't work at the same time as content alignment in a column set
   final bool supportMarkdown;
 
-  final bool? listView;
-
-  Widget getElement(Map<String, dynamic> map, {String parentMode = "stretch"}) {
+  Widget getElement(Map<String, dynamic> map, {String parentMode = "stretch", bool listView = false}) {
     String? stringType = map["type"];
 
     if (removedElements.contains(stringType))
@@ -73,7 +70,7 @@ class CardRegistry {
     if (addedElements.containsKey(stringType)) {
       return addedElements[stringType!]!(map);
     } else {
-      return _getBaseElement(map, parentMode: parentMode, supportMarkdown: supportMarkdown);
+      return _getBaseElement(map, parentMode: parentMode, supportMarkdown: supportMarkdown, listView: listView);
     }
   }
 
@@ -112,7 +109,7 @@ class CardRegistry {
   /// This returns an [AdaptiveElement] with the correct type.
   ///
   /// It looks at the [type] property and decides which object to construct
-  Widget _getBaseElement(Map<String, dynamic> map, {String parentMode = "stretch", bool supportMarkdown = false}) {
+  Widget _getBaseElement(Map<String, dynamic> map, {String parentMode = "stretch", bool supportMarkdown = false, required bool listView}) {
     String? stringType = map["type"];
 
     switch (stringType) {

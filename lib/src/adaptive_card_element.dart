@@ -6,10 +6,10 @@ import 'base.dart';
 import 'elements/actions/show_card.dart';
 
 class AdaptiveCardElement extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveCardElement({Key? key, required this.adaptiveMap, this.listView}) : super(key: UniqueKey());
+  AdaptiveCardElement({Key? key, required this.adaptiveMap, required this.listView}) : super(key: UniqueKey());
 
   final Map adaptiveMap;
-  final bool? listView;
+  final bool listView;
 
   @override
   AdaptiveCardElementState createState() => AdaptiveCardElementState();

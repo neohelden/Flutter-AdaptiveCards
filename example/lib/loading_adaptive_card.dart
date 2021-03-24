@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 
 class LabAdaptiveCard extends StatelessWidget {
-  const LabAdaptiveCard({Key key, this.payload}) : super(key: key);
+  const LabAdaptiveCard({Key? key, required this.payload}) : super(key: key);
 
   final String payload;
 
@@ -22,14 +22,14 @@ class LabAdaptiveCard extends StatelessWidget {
 class DemoAdaptiveCard extends StatefulWidget {
   const DemoAdaptiveCard(
     this.assetPath, {
-    Key key,
+    Key? key,
     this.hostConfig,
     this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : super(key: key);
 
   final String assetPath;
-  final String hostConfig;
+  final String? hostConfig;
   final bool approximateDarkThemeColors;
   final bool supportMarkdown;
 
@@ -38,7 +38,7 @@ class DemoAdaptiveCard extends StatefulWidget {
 }
 
 class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepAliveClientMixin {
-  String jsonFile;
+  late String jsonFile;
 
   @override
   void initState() {

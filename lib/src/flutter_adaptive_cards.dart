@@ -74,7 +74,7 @@ class AdaptiveCard extends StatefulWidget {
     Key? key,
     required this.adaptiveCardContentProvider,
     this.placeholder,
-    this.cardRegistry = const CardRegistry(),
+    this.cardRegistry,
     this.onSubmit,
     this.onOpenUrl,
     this.hostConfig,
@@ -155,7 +155,7 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
   Map? map;
   Map? hostConfig;
 
-  CardRegistry? cardRegistry;
+  late CardRegistry cardRegistry;
 
   Function(Map? map)? onSubmit;
   Function(String? url)? onOpenUrl;
@@ -196,13 +196,13 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (widget.cardRegistry != null) {
-      cardRegistry = widget.cardRegistry;
+      cardRegistry = widget.cardRegistry!;
     } else {
       CardRegistry? cardRegistry = DefaultCardRegistry.of(context);
       if (cardRegistry != null) {
         this.cardRegistry = cardRegistry;
       } else {
-        this.cardRegistry = CardRegistry(supportMarkdown: widget.supportMarkdown, listView: widget.listView);
+        this.cardRegistry = CardRegistry(supportMarkdown: widget.supportMarkdown);
       }
     }
 
@@ -241,7 +241,7 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
     return RawAdaptiveCard.fromMap(
       map,
       hostConfig,
-      cardRegistry: cardRegistry = const CardRegistry(),
+      cardRegistry: cardRegistry,
       onOpenUrl: onOpenUrl,
       onSubmit: onSubmit,
       listView: widget.listView,
@@ -263,7 +263,7 @@ class RawAdaptiveCard extends StatefulWidget {
     this.cardRegistry = const CardRegistry(),
     required this.onSubmit,
     required this.onOpenUrl,
-    this.listView = false,
+    required this.listView,
     this.showDebugJson = true,
     this.approximateDarkThemeColors = true,
   }) : assert(onSubmit != null, onOpenUrl != null);
@@ -290,7 +290,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
   late CardRegistry cardRegistry;
 
   // The root element
-  late Widget _adaptiveElement;
+  late Widget? _adaptiveElement;
 
   @override
   void initState() {
@@ -303,14 +303,14 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
     idGenerator = UUIDGenerator();
     cardRegistry = widget.cardRegistry;
 
-    _adaptiveElement = widget.cardRegistry.getElement(widget.map as Map<String, dynamic>);
+    _adaptiveElement = widget.cardRegistry.getElement(widget.map as Map<String, dynamic>, listView: widget.listView);
   }
 
   void didUpdateWidget(RawAdaptiveCard oldWidget) {
     _resolver = ReferenceResolver(
       hostConfig: widget.hostConfig,
     );
-    _adaptiveElement = widget.cardRegistry.getElement(widget.map as Map<String, dynamic>);
+    _adaptiveElement = widget.cardRegistry.getElement(widget.map as Map<String, dynamic>, listView: widget.listView);
     super.didUpdateWidget(oldWidget);
   }
 
@@ -364,7 +364,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
 
   @override
   Widget build(BuildContext context) {
-    Widget child = _adaptiveElement;
+    Widget? child = _adaptiveElement;
 
     assert(() {
       if (widget.showDebugJson) {
@@ -399,7 +399,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
             Divider(
               height: 0,
             ),
-            child,
+            child ?? SizedBox(width: 1),
           ],
         );
       }
