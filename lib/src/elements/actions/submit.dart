@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import '../../base.dart';
 
 class AdaptiveActionSubmit extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveActionSubmit({Key key, this.adaptiveMap, this.color}) : super(key: key);
+  AdaptiveActionSubmit({Key? key, required this.adaptiveMap, this.color}) : super(key: key);
 
   final Map adaptiveMap;
 
   // Native styling
-  final Color color;
+  final Color? color;
 
   @override
   _AdaptiveActionSubmitState createState() => _AdaptiveActionSubmitState();
 }
 
 class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit> with AdaptiveActionMixin, AdaptiveElementMixin {
-  GenericSubmitAction action;
+  late GenericSubmitAction action;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit> with Adapti
         primary: widget.color,
       ),
       onPressed: onTapped,
-      child: Text(title, textAlign: TextAlign.center),
+      child: Text(title!, textAlign: TextAlign.center),
     );
   }
 

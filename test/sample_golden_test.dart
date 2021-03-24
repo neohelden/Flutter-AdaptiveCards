@@ -27,7 +27,7 @@ void main() {
   // Deliver actual images
   setUp(() async {
     HttpOverrides.global = MyTestHttpOverrides();
-    WidgetsBinding.instance.renderView.configuration =
+    WidgetsBinding.instance!.renderView.configuration =
         TestViewConfiguration(size: const Size(500, 700));
 
     final fontData = File('assets/fonts/Roboto/Roboto-Regular.ttf')

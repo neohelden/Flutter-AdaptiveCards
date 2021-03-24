@@ -6,7 +6,7 @@ import 'actions/show_card.dart';
 import 'actions/submit.dart';
 
 class ActionSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  ActionSet({Key key, this.adaptiveMap}) : super(key: key);
+  ActionSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -32,7 +32,7 @@ class _ActionSetState extends State<ActionSet> with AdaptiveElementMixin {
   }
 
   Widget _getAction(Map<String, dynamic> map) {
-    String stringType = map["type"];
+    String? stringType = map["type"];
 
     switch (stringType) {
       case "Action.ShowCard":

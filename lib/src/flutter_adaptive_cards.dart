@@ -17,24 +17,24 @@ import 'base.dart';
 abstract class AdaptiveCardContentProvider {
   AdaptiveCardContentProvider({this.hostConfigPath, this.hostConfig});
 
-  final String hostConfigPath;
-  final String hostConfig;
+  final String? hostConfigPath;
+  final String? hostConfig;
 
-  Future<Map> loadHostConfig() async {
+  Future<Map?> loadHostConfig() async {
     if (hostConfig != null) {
-      var cleanedHostConfig = hostConfig.replaceAll(new RegExp(r'\n'), '');
+      var cleanedHostConfig = hostConfig!.replaceAll(new RegExp(r'\n'), '');
       return json.decode(cleanedHostConfig);
     }
 
-    String hostConfigString = await rootBundle.loadString(hostConfigPath);
+    String hostConfigString = await rootBundle.loadString(hostConfigPath!);
     return json.decode(hostConfigString);
   }
 
-  Future<Map> loadAdaptiveCardContent();
+  Future<Map?> loadAdaptiveCardContent();
 }
 
 class MemoryAdaptiveCardContentProvider extends AdaptiveCardContentProvider {
-  MemoryAdaptiveCardContentProvider({@required this.content, String hostConfigPath, String hostConfig})
+  MemoryAdaptiveCardContentProvider({required this.content, String? hostConfigPath, String? hostConfig})
       : super(hostConfigPath: hostConfigPath, hostConfig: hostConfig);
 
   Map content;
@@ -46,33 +46,33 @@ class MemoryAdaptiveCardContentProvider extends AdaptiveCardContentProvider {
 }
 
 class AssetAdaptiveCardContentProvider extends AdaptiveCardContentProvider {
-  AssetAdaptiveCardContentProvider({@required this.path, String hostConfigPath, String hostConfig})
+  AssetAdaptiveCardContentProvider({required this.path, String? hostConfigPath, String? hostConfig})
       : super(hostConfigPath: hostConfigPath, hostConfig: hostConfig);
 
   String path;
 
   @override
-  Future<Map> loadAdaptiveCardContent() async {
+  Future<Map?> loadAdaptiveCardContent() async {
     return json.decode(await rootBundle.loadString(path));
   }
 }
 
 class NetworkAdaptiveCardContentProvider extends AdaptiveCardContentProvider {
-  NetworkAdaptiveCardContentProvider({@required this.url, String hostConfigPath, String hostConfig})
+  NetworkAdaptiveCardContentProvider({required this.url, String? hostConfigPath, String? hostConfig})
       : super(hostConfigPath: hostConfigPath, hostConfig: hostConfig);
 
   String url;
 
   @override
-  Future<Map> loadAdaptiveCardContent() async {
+  Future<Map?> loadAdaptiveCardContent() async {
     return json.decode((await http.get(Uri.dataFromString(url))).body);
   }
 }
 
 class AdaptiveCard extends StatefulWidget {
   AdaptiveCard({
-    Key key,
-    @required this.adaptiveCardContentProvider,
+    Key? key,
+    required this.adaptiveCardContentProvider,
     this.placeholder,
     this.cardRegistry = const CardRegistry(),
     this.onSubmit,
@@ -85,11 +85,11 @@ class AdaptiveCard extends StatefulWidget {
   }) : super(key: key);
 
   AdaptiveCard.network({
-    Key key,
+    Key? key,
     this.placeholder,
     this.cardRegistry,
-    @required String url,
-    @required String hostConfigPath,
+    required String url,
+    required String hostConfigPath,
     this.hostConfig,
     this.onSubmit,
     this.onOpenUrl,
@@ -101,11 +101,11 @@ class AdaptiveCard extends StatefulWidget {
             NetworkAdaptiveCardContentProvider(url: url, hostConfigPath: hostConfigPath, hostConfig: hostConfig);
 
   AdaptiveCard.asset({
-    Key key,
+    Key? key,
     this.placeholder,
     this.cardRegistry,
-    @required String assetPath,
-    @required String hostConfigPath,
+    required String assetPath,
+    required String hostConfigPath,
     this.hostConfig,
     this.onSubmit,
     this.onOpenUrl,
@@ -117,11 +117,11 @@ class AdaptiveCard extends StatefulWidget {
             AssetAdaptiveCardContentProvider(path: assetPath, hostConfigPath: hostConfigPath, hostConfig: hostConfig);
 
   AdaptiveCard.memory({
-    Key key,
+    Key? key,
     this.placeholder,
     this.cardRegistry,
-    @required Map content,
-    @required String hostConfigPath,
+    required Map content,
+    required String hostConfigPath,
     this.hostConfig,
     this.onSubmit,
     this.onOpenUrl,
@@ -134,14 +134,14 @@ class AdaptiveCard extends StatefulWidget {
 
   final AdaptiveCardContentProvider adaptiveCardContentProvider;
 
-  final Widget placeholder;
+  final Widget? placeholder;
 
-  final CardRegistry cardRegistry;
+  final CardRegistry? cardRegistry;
 
-  final String hostConfig;
+  final String? hostConfig;
 
-  final Function(Map map) onSubmit;
-  final Function(String url) onOpenUrl;
+  final Function(Map? map)? onSubmit;
+  final Function(String? url)? onOpenUrl;
   final bool showDebugJson;
   final bool approximateDarkThemeColors;
   final bool supportMarkdown;
@@ -152,13 +152,13 @@ class AdaptiveCard extends StatefulWidget {
 }
 
 class _AdaptiveCardState extends State<AdaptiveCard> {
-  Map map;
-  Map hostConfig;
+  Map? map;
+  Map? hostConfig;
 
-  CardRegistry cardRegistry;
+  CardRegistry? cardRegistry;
 
-  Function(Map map) onSubmit;
-  Function(String url) onOpenUrl;
+  Function(Map? map)? onSubmit;
+  Function(String? url)? onOpenUrl;
 
   @override
   void initState() {
@@ -198,7 +198,7 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
     if (widget.cardRegistry != null) {
       cardRegistry = widget.cardRegistry;
     } else {
-      CardRegistry cardRegistry = DefaultCardRegistry.of(context);
+      CardRegistry? cardRegistry = DefaultCardRegistry.of(context);
       if (cardRegistry != null) {
         this.cardRegistry = cardRegistry;
       } else {
@@ -241,7 +241,7 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
     return RawAdaptiveCard.fromMap(
       map,
       hostConfig,
-      cardRegistry: cardRegistry,
+      cardRegistry: cardRegistry = const CardRegistry(),
       onOpenUrl: onOpenUrl,
       onSubmit: onSubmit,
       listView: widget.listView,
@@ -261,19 +261,19 @@ class RawAdaptiveCard extends StatefulWidget {
     this.map,
     this.hostConfig, {
     this.cardRegistry = const CardRegistry(),
-    @required this.onSubmit,
-    @required this.onOpenUrl,
+    required this.onSubmit,
+    required this.onOpenUrl,
     this.listView = false,
     this.showDebugJson = true,
     this.approximateDarkThemeColors = true,
   }) : assert(onSubmit != null, onOpenUrl != null);
 
-  final Map map;
-  final Map hostConfig;
+  final Map? map;
+  final Map? hostConfig;
   final CardRegistry cardRegistry;
 
-  final Function(Map map) onSubmit;
-  final Function(String url) onOpenUrl;
+  final Function(Map? map)? onSubmit;
+  final Function(String? url)? onOpenUrl;
 
   final bool showDebugJson;
   final bool approximateDarkThemeColors;
@@ -285,12 +285,12 @@ class RawAdaptiveCard extends StatefulWidget {
 
 class RawAdaptiveCardState extends State<RawAdaptiveCard> {
   // Wrapper around the host config
-  ReferenceResolver _resolver;
-  UUIDGenerator idGenerator;
-  CardRegistry cardRegistry;
+  late ReferenceResolver _resolver;
+  late UUIDGenerator idGenerator;
+  late CardRegistry cardRegistry;
 
   // The root element
-  Widget _adaptiveElement;
+  late Widget _adaptiveElement;
 
   @override
   void initState() {
@@ -303,14 +303,14 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
     idGenerator = UUIDGenerator();
     cardRegistry = widget.cardRegistry;
 
-    _adaptiveElement = widget.cardRegistry.getElement(widget.map);
+    _adaptiveElement = widget.cardRegistry.getElement(widget.map as Map<String, dynamic>);
   }
 
   void didUpdateWidget(RawAdaptiveCard oldWidget) {
     _resolver = ReferenceResolver(
       hostConfig: widget.hostConfig,
     );
-    _adaptiveElement = widget.cardRegistry.getElement(widget.map);
+    _adaptiveElement = widget.cardRegistry.getElement(widget.map as Map<String, dynamic>);
     super.didUpdateWidget(oldWidget);
   }
 
@@ -322,7 +322,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
 
   /// Submits all the inputs of this adaptive card, does it by recursively
   /// visiting the elements in the tree
-  void submit(Map map) {
+  void submit(Map? map) {
     var visitor;
     visitor = (element) {
       if (element is StatefulElement) {
@@ -334,11 +334,13 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
     };
     context.visitChildElements(visitor);
 
-    widget.onSubmit(map);
+    if (widget.onSubmit != null) {
+      widget.onSubmit!(map);
+    }
   }
 
-  void openUrl(String url) {
-    widget.onOpenUrl(url);
+  void openUrl(String? url) {
+    widget.onOpenUrl!(url);
   }
 
   void showError(String message) {
@@ -346,7 +348,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
   }
 
   /// min and max dates may be null, in this case no constraint is made in that direction
-  Future<DateTime> pickDate(DateTime min, DateTime max) {
+  Future<DateTime?> pickDate(DateTime? min, DateTime? max) {
     DateTime initialDate = DateTime.now();
     return showDatePicker(
         context: context,
@@ -355,7 +357,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
         lastDate: max ?? DateTime.now().add(Duration(days: 10000)));
   }
 
-  Future<TimeOfDay> pickTime() {
+  Future<TimeOfDay?> pickTime() {
     TimeOfDay initialTimeOfDay = TimeOfDay.now();
     return showTimePicker(context: context, initialTime: initialTimeOfDay);
   }
@@ -367,7 +369,7 @@ class RawAdaptiveCardState extends State<RawAdaptiveCard> {
     assert(() {
       if (widget.showDebugJson) {
         child = Column(
-          children: <Widget>[
+          children: [
             TextButton(
               style: TextButton.styleFrom(primary: Colors.indigo),
               onPressed: () {
@@ -457,13 +459,13 @@ typedef AdaptiveElementVisitor = void Function(AdaptiveElement element);
 /// implement the method [visitChildren] and call visitor(this) in addition call
 /// [visitChildren] on each child with the passed visitor.
 abstract class AdaptiveElement {
-  AdaptiveElement({@required this.adaptiveMap, @required this.widgetState}) {
+  AdaptiveElement({required this.adaptiveMap, required this.widgetState}) {
     loadTree();
   }
 
   final Map adaptiveMap;
 
-  String id;
+  String? id;
 
   /// Because some widgets (looking at you ShowCardAction) need to set the state
   /// all elements get a way to set the state.
@@ -533,44 +535,31 @@ class ReferenceResolver {
     this.currentStyle,
   });
 
-  final Map hostConfig;
+  final Map? hostConfig;
 
-  final String currentStyle;
+  final String? currentStyle;
 
   dynamic resolve(String key, String value) {
-    dynamic res = hostConfig[key][firstCharacterToLowerCase(value)];
+    dynamic res = hostConfig![key][firstCharacterToLowerCase(value)];
     assert(res != null, "Could not find hostConfig[$key][${firstCharacterToLowerCase(value)}]");
     return res;
   }
 
   dynamic get(String key) {
-    dynamic res = hostConfig[key];
+    dynamic res = hostConfig![key];
     assert(res != null, "Could not find hostConfig[$key]");
     return res;
   }
 
-  FontWeight resolveFontWeight(String value) {
+  FontWeight resolveFontWeight(String? value) {
     int weight = resolve("fontWeights", value ?? "default");
-    assert(
-        weight != null,
-        "\n"
-        "FontWeight '${value ?? "default"}' was not found in the host_config. \n\n"
-        "The available font weights were: \n\n"
-        "${(hostConfig["fontWeights"] as Map).entries.map((entry) => "${entry.key}: ${entry.value}\n").toList()}");
     FontWeight fontWeight =
         FontWeight.values.firstWhere((possibleWeight) => possibleWeight.toString() == "FontWeight.w$weight");
-    assert(fontWeight != null, "There is no FontWight.w$weight");
     return fontWeight;
   }
 
-  double resolveFontSize(String value) {
+  double resolveFontSize(String? value) {
     int size = resolve("fontSizes", value ?? "default");
-    assert(
-        size != null,
-        "\n"
-        "Fontsize '${value ?? "default"}' was not found in the host_config. \n\n"
-        "The available font sizes were: \n\n"
-        "${(hostConfig["fontSizes"] as Map).entries.map((entry) => "${entry.key}: ${entry.value}\n").toList()}");
     return size.toDouble();
   }
 
@@ -584,17 +573,17 @@ class ReferenceResolver {
   /// - good
   /// - warning
   /// - attention
-  Color resolveForegroundColor(String colorType, bool isSubtle) {
+  Color? resolveForegroundColor(String? colorType, bool? isSubtle) {
     String myColor = colorType ?? "default";
     String subtleOrDefault = isSubtle ?? false ? "subtle" : "default";
     final style = currentStyle ?? "default";
     // Make it case insensitive
-    String colorValue =
-        hostConfig["containerStyles"][style]["foregroundColors"][firstCharacterToLowerCase(myColor)][subtleOrDefault];
+    String? colorValue =
+        hostConfig!["containerStyles"][style]["foregroundColors"][firstCharacterToLowerCase(myColor)][subtleOrDefault];
     return parseColor(colorValue);
   }
 
-  ReferenceResolver copyWith({String style}) {
+  ReferenceResolver copyWith({String? style}) {
     assert(style == null || style == "default" || style == "emphasis");
     String myStyle = style ?? "default";
     return ReferenceResolver(
@@ -603,11 +592,10 @@ class ReferenceResolver {
     );
   }
 
-  double resolveSpacing(String spacing) {
+  double resolveSpacing(String? spacing) {
     String mySpacing = spacing ?? "default";
     if (mySpacing == "none") return 0.0;
-    int intSpacing = hostConfig["spacing"][firstCharacterToLowerCase(mySpacing)];
-    assert(intSpacing != null, "hostConfig[\"spacing\"][\"${firstCharacterToLowerCase(mySpacing)}\"] was null");
+    int intSpacing = hostConfig!["spacing"][firstCharacterToLowerCase(mySpacing)];
     return intSpacing.toDouble();
   }
 }

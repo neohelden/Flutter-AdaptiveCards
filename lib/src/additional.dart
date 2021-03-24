@@ -8,20 +8,20 @@ class SeparatorElement extends StatefulWidget with AdaptiveElementWidgetMixin {
   final Map adaptiveMap;
   final Widget child;
 
-  SeparatorElement({Key key, this.adaptiveMap, this.child}) : super(key: key);
+  SeparatorElement({Key? key, required this.adaptiveMap, required this.child}) : super(key: key);
 
   @override
   _SeparatorElementState createState() => _SeparatorElementState();
 }
 
 class _SeparatorElementState extends State<SeparatorElement> with AdaptiveElementMixin {
-  double topSpacing;
-  bool separator;
+  double? topSpacing;
+  late bool separator;
 
   @override
   void initState() {
     super.initState();
-    topSpacing = resolver.resolveSpacing(adaptiveMap["spacing"]);
+    topSpacing = resolver!.resolveSpacing(adaptiveMap["spacing"]);
     separator = adaptiveMap["separator"] ?? false;
   }
 
@@ -38,7 +38,7 @@ class _SeparatorElementState extends State<SeparatorElement> with AdaptiveElemen
 }
 
 class AdaptiveTappable extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveTappable({Key key, this.child, this.adaptiveMap}) : super(key: key);
+  AdaptiveTappable({Key? key, required this.child, required this.adaptiveMap}) : super(key: key);
 
   final Widget child;
 
@@ -49,13 +49,13 @@ class AdaptiveTappable extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveTappableState extends State<AdaptiveTappable> with AdaptiveElementMixin {
-  GenericAction action;
+  GenericAction? action;
 
   @override
   void initState() {
     super.initState();
     if (adaptiveMap.containsKey("selectAction")) {
-      action = widgetState.cardRegistry.getGenericAction(adaptiveMap["selectAction"], widgetState);
+      action = widgetState!.cardRegistry.getGenericAction(adaptiveMap["selectAction"], widgetState);
     }
   }
 
@@ -73,7 +73,7 @@ class ChildStyler extends StatelessWidget {
 
   final Map adaptiveMap;
 
-  const ChildStyler({Key key, this.child, this.adaptiveMap}) : super(key: key);
+  const ChildStyler({Key? key, required this.child, required this.adaptiveMap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

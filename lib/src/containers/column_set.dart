@@ -6,7 +6,7 @@ import '../utils.dart';
 import 'column.dart';
 
 class AdaptiveColumnSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveColumnSet({Key key, this.adaptiveMap, this.supportMarkdown}) : super(key: key);
+  AdaptiveColumnSet({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
 
   final Map adaptiveMap;
   final bool supportMarkdown;
@@ -16,8 +16,8 @@ class AdaptiveColumnSet extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveColumnSetState extends State<AdaptiveColumnSet> with AdaptiveElementMixin {
-  List<AdaptiveColumn> columns;
-  MainAxisAlignment horizontalAlignment;
+  late List<AdaptiveColumn> columns;
+  late MainAxisAlignment horizontalAlignment;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _AdaptiveColumnSetState extends State<AdaptiveColumnSet> with AdaptiveElem
     var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 

@@ -5,7 +5,7 @@ import '../base.dart';
 import '../utils.dart';
 
 class AdaptiveColumn extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveColumn({Key key, this.adaptiveMap, this.supportMarkdown}) : super(key: key);
+  AdaptiveColumn({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
 
   final Map adaptiveMap;
   final bool supportMarkdown;
@@ -15,32 +15,32 @@ class AdaptiveColumn extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMixin {
-  List<Widget> items;
+  late List<Widget> items;
 
   /// Can be "auto", "stretch" or "weighted"
-  String mode;
-  int width;
+  late String mode;
+  late int width;
 
-  MainAxisAlignment verticalAlignment;
-  CrossAxisAlignment horizontalAlignment;
-  Alignment containerHorizontalAlignment;
+  late MainAxisAlignment verticalAlignment;
+  late CrossAxisAlignment horizontalAlignment;
+  Alignment? containerHorizontalAlignment;
 
-  GenericAction action;
+  GenericAction? action;
 
   // Need to do the separator manually for this class
   // because the flexible needs to be applied to the class above
-  double precedingSpacing;
-  Widget backgroundImage;
-  bool separator;
+  late double precedingSpacing;
+  Widget? backgroundImage;
+  bool? separator;
 
   @override
   void initState() {
     super.initState();
 
     if (adaptiveMap.containsKey("selectAction")) {
-      action = widgetState.cardRegistry.getGenericAction(adaptiveMap["selectAction"], widgetState);
+      action = widgetState!.cardRegistry.getGenericAction(adaptiveMap["selectAction"], widgetState);
     }
-    precedingSpacing = resolver.resolveSpacing(adaptiveMap["spacing"]);
+    precedingSpacing = resolver!.resolveSpacing(adaptiveMap["spacing"]);
     separator = adaptiveMap["separator"] ?? false;
 
     backgroundImage = _getBackgroundImage(adaptiveMap);
@@ -52,13 +52,8 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
       } else if (toParseWidth == "stretch") {
         mode = "stretch";
       } else if (toParseWidth is int) {
-        if (toParseWidth != null) {
           width = toParseWidth;
           mode = "weighted";
-        } else {
-          // Handle gracefully
-          mode = "auto";
-        }
       } else {
         var widthString = toParseWidth.toString();
 
@@ -75,11 +70,13 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
       mode = "auto";
     }
 
-    items = adaptiveMap["items"] != null
-        ? List<Map>.from(adaptiveMap["items"]).map((child) {
-            return widgetState.cardRegistry.getElement(child, parentMode: mode);
-          }).toList()
-        : [];
+    if (adaptiveMap["items"] != null) {
+      items = List<Map>.from(adaptiveMap["items"]).map((child) {
+        return widgetState!.cardRegistry.getElement(child as Map<String, dynamic>, parentMode: mode);
+      }).toList();
+    } else {
+      items = [];
+    }
 
     verticalAlignment = loadVerticalAlignment();
     horizontalAlignment = loadHorizontalAlignment();
@@ -116,8 +113,8 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
     }
   }
 
-  Alignment loadHorizontalContainerAlignment() {
-    String horizontalAlignment = adaptiveMap["horizontalAlignment"]?.toLowerCase();
+  Alignment? loadHorizontalContainerAlignment() {
+    String? horizontalAlignment = adaptiveMap["horizontalAlignment"]?.toLowerCase();
 
     switch (horizontalAlignment) {
       case "left":
@@ -131,7 +128,7 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
     }
   }
 
-  Widget _getBackgroundImage(Map element) {
+  Widget _getBackgroundImage(Map? element) {
     var backgroundImage = adaptiveMap["backgroundImage"];
     if (backgroundImage != null) {
       var backgroundImageUrl = backgroundImage["url"];
@@ -182,7 +179,7 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
     var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -202,7 +199,7 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
 
     Widget result = Stack(
       children: [
-        backgroundImage,
+        backgroundImage!,
         InkWell(
           onTap: action?.tap,
           child: Padding(

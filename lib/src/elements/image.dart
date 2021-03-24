@@ -4,7 +4,7 @@ import 'package:flutter_adaptive_cards/src/base.dart';
 import 'package:flutter_adaptive_cards/src/utils.dart';
 
 class AdaptiveImage extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveImage({Key key, this.adaptiveMap, this.parentMode = "stretch", this.supportMarkdown}) : super(key: key);
+  AdaptiveImage({Key? key, required this.adaptiveMap, this.parentMode = "stretch", required this.supportMarkdown}) : super(key: key);
 
   final Map adaptiveMap;
   final String parentMode;
@@ -15,10 +15,10 @@ class AdaptiveImage extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin {
-  Alignment horizontalAlignment;
-  bool isPerson;
-  double width;
-  double height;
+  late Alignment horizontalAlignment;
+  late bool isPerson;
+  double? width;
+  double? height;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
     Widget image = AdaptiveTappable(
       adaptiveMap: adaptiveMap,
       child: Image(
-        image: NetworkImage(url),
+        image: NetworkImage(url!),
         fit: fit,
         width: width,
         height: height,
@@ -97,15 +97,15 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
     return true;
   }
 
-  String get url => adaptiveMap["url"];
+  String? get url => adaptiveMap["url"];
 
   void loadSize() {
     String sizeDescription = adaptiveMap["size"] ?? "auto";
     sizeDescription = sizeDescription.toLowerCase();
 
-    int size;
+    int? size;
     if (sizeDescription != "auto" && sizeDescription != "stretch") {
-      size = resolver.resolve("imageSizes", sizeDescription);
+      size = resolver!.resolve("imageSizes", sizeDescription);
     }
 
     var width = size;

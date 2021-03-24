@@ -59,10 +59,10 @@ class CardRegistry {
   // markdown support doesn't work at the same time as content alignment in a column set
   final bool supportMarkdown;
 
-  final bool listView;
+  final bool? listView;
 
   Widget getElement(Map<String, dynamic> map, {String parentMode = "stretch"}) {
-    String stringType = map["type"];
+    String? stringType = map["type"];
 
     if (removedElements.contains(stringType))
       return AdaptiveUnknown(
@@ -71,14 +71,14 @@ class CardRegistry {
       );
 
     if (addedElements.containsKey(stringType)) {
-      return addedElements[stringType](map);
+      return addedElements[stringType!]!(map);
     } else {
       return _getBaseElement(map, parentMode: parentMode, supportMarkdown: supportMarkdown);
     }
   }
 
-  GenericAction getGenericAction(Map<String, dynamic> map, RawAdaptiveCardState state) {
-    String stringType = map["type"];
+  GenericAction? getGenericAction(Map<String, dynamic> map, RawAdaptiveCardState? state) {
+    String? stringType = map["type"];
 
     switch (stringType) {
       case "Action.ShowCard":
@@ -94,7 +94,7 @@ class CardRegistry {
   }
 
   Widget getAction(Map<String, dynamic> map) {
-    String stringType = map["type"];
+    String? stringType = map["type"];
 
     if (removedElements.contains(stringType))
       return AdaptiveUnknown(
@@ -103,7 +103,7 @@ class CardRegistry {
       );
 
     if (addedActions.containsKey(stringType)) {
-      return addedActions[stringType](map);
+      return addedActions[stringType!]!(map);
     } else {
       return _getBaseAction(map);
     }
@@ -112,8 +112,8 @@ class CardRegistry {
   /// This returns an [AdaptiveElement] with the correct type.
   ///
   /// It looks at the [type] property and decides which object to construct
-  Widget _getBaseElement(Map<String, dynamic> map, {String parentMode = "stretch", bool supportMarkdown}) {
-    String stringType = map["type"];
+  Widget _getBaseElement(Map<String, dynamic> map, {String parentMode = "stretch", bool supportMarkdown = false}) {
+    String? stringType = map["type"];
 
     switch (stringType) {
       case "Media":
@@ -181,7 +181,7 @@ class CardRegistry {
   Widget _getBaseAction(
     Map<String, dynamic> map,
   ) {
-    String stringType = map["type"];
+    String? stringType = map["type"];
 
     switch (stringType) {
       case "Action.ShowCard":
@@ -206,15 +206,15 @@ class CardRegistry {
 
 class DefaultCardRegistry extends InheritedWidget {
   DefaultCardRegistry({
-    Key key,
-    @required this.cardRegistry,
-    @required Widget child,
+    Key? key,
+    required this.cardRegistry,
+    required Widget child,
   }) : super(key: key, child: child);
 
   final CardRegistry cardRegistry;
 
-  static CardRegistry of(BuildContext context) {
-    DefaultCardRegistry cardRegistry = context.dependOnInheritedWidgetOfExactType<DefaultCardRegistry>();
+  static CardRegistry? of(BuildContext context) {
+    DefaultCardRegistry? cardRegistry = context.dependOnInheritedWidgetOfExactType<DefaultCardRegistry>();
     if (cardRegistry == null) return null;
     return cardRegistry.cardRegistry;
   }

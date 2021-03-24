@@ -8,7 +8,7 @@ import '../utils.dart';
 import 'package:provider/provider.dart';
 
 class AdaptiveTextBlock extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveTextBlock({Key key, this.adaptiveMap, this.supportMarkdown}) : super(key: key);
+  AdaptiveTextBlock({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
 
   final Map adaptiveMap;
   final bool supportMarkdown;
@@ -18,18 +18,18 @@ class AdaptiveTextBlock extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElementMixin {
-  FontWeight fontWeight;
-  double fontSize;
-  Alignment horizontalAlignment;
-  int maxLines;
-  TextAlign textAlign;
-  String text;
+  FontWeight? fontWeight;
+  double? fontSize;
+  late Alignment horizontalAlignment;
+  int? maxLines;
+  TextAlign? textAlign;
+  late String text;
 
   @override
   void initState() {
     super.initState();
-    fontSize = resolver.resolveFontSize(adaptiveMap["size"]);
-    fontWeight = resolver.resolveFontWeight(adaptiveMap["weight"]);
+    fontSize = resolver!.resolveFontSize(adaptiveMap["size"]);
+    fontWeight = resolver!.resolveFontWeight(adaptiveMap["weight"]);
     horizontalAlignment = loadAlignment();
     textAlign = loadTextAlign();
     maxLines = loadMaxLines();
@@ -69,7 +69,7 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
     );
   }
 
-  Widget getMarkdownText({BuildContext context}) {
+  Widget getMarkdownText({BuildContext? context}) {
     return MarkdownBody(
       // TODO the markdown library does currently not support max lines
       // As markdown support is more important than maxLines right now
@@ -78,7 +78,7 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
       data: text,
       styleSheet: loadMarkdownStyleSheet(),
       onTapLink: (text, href, title) {
-        var rawAdaptiveCardState = context.watch<RawAdaptiveCardState>();
+        var rawAdaptiveCardState = context!.watch<RawAdaptiveCardState>();
         rawAdaptiveCardState.openUrl(href);
       },
     );
@@ -90,9 +90,9 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
   }*/
 
   // Probably want to pass context down the tree, until now -> this
-  Color getColor(Brightness brightness) {
-    Color color = resolver.resolveForegroundColor(adaptiveMap["color"], adaptiveMap["isSubtle"]);
-    if (color != null && widgetState.widget.approximateDarkThemeColors) {
+  Color? getColor(Brightness brightness) {
+    Color? color = resolver!.resolveForegroundColor(adaptiveMap["color"], adaptiveMap["isSubtle"]);
+    if (color != null && widgetState!.widget.approximateDarkThemeColors) {
       color = adjustColorToFitDarkTheme(color, brightness);
     }
     return color;
@@ -129,7 +129,7 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
   }
 
   /// This also takes care of the wrap property, because maxLines = 1 => no wrap
-  int loadMaxLines() {
+  int? loadMaxLines() {
     bool wrap = widget.adaptiveMap["wrap"] ?? false;
     if (!wrap) return 1;
     // can be null, but that's okay for the text widget.
