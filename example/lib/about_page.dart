@@ -1,5 +1,4 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:dynamic_theme/theme_switcher_widgets.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,15 +14,11 @@ class AboutPage extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text("Change brightness"),
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (_) => BrightnessSwitcherDialog(
-                        onSelectedTheme: (it) {
-                          DynamicTheme.of(context).setBrightness(it);
-                        },
-                      ));
-            },
+            onTap: () => AdaptiveTheme.of(context).toggleThemeMode(),
+            trailing: Switch(
+              value: Theme.of(context).brightness == Brightness.dark,
+              onChanged: (_) => AdaptiveTheme.of(context).toggleThemeMode(),
+            ),
           ),
           Card(
             child: Padding(
