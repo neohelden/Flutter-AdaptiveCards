@@ -26,6 +26,7 @@ Widget getWidget(String path, String hostConfigPath) {
     hostConfig,
     onSubmit: (_) {},
     onOpenUrl: (_) {},
+    listView: false,
   );
 
   return MaterialApp(

@@ -110,7 +110,6 @@ String getDayOfMonthSuffix(final int n) {
 Color adjustColorToFitDarkTheme(Color color, Brightness? brightness) {
   return color;
 
-  return color;
   // TODO add tiny color when null safety version is released
  /* if (brightness == Brightness.light) {
     return color;
