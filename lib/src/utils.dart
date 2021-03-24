@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 import 'package:intl/intl.dart';
-import 'package:tinycolor/tinycolor.dart';
 import 'package:uuid/uuid.dart';
 
 class FadeAnimation extends StatefulWidget {
@@ -111,7 +110,9 @@ String getDayOfMonthSuffix(final int n) {
 Color adjustColorToFitDarkTheme(Color color, Brightness brightness) {
   if (color == null) return null;
 
-  if (brightness == Brightness.light) {
+  return color;
+  // TODO add tiny color when null safety version is released
+ /* if (brightness == Brightness.light) {
     return color;
   } else {
     TinyColor tinyColor = TinyColor(color);
@@ -119,7 +120,7 @@ Color adjustColorToFitDarkTheme(Color color, Brightness brightness) {
     if (tinyColor.isDark()) return tinyColor.lighten(((1 - luminance) * 100).round()).color;
     if (tinyColor.isLight()) return tinyColor.darken(((0 + luminance) * 100).round()).color;
     return color;
-  }
+  }*/
 }
 
 Color getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({

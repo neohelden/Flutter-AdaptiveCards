@@ -11,20 +11,18 @@ dependencies:
     sdk: flutter
 
   # General
-  http: ^0.13.0
+  http: ^0.13.1
   provider: ^5.0.0
-  uuid: ^3.0.1
+  uuid: ^3.0.2
   ## Localization
   intl: ^0.17.0
-  ## Used for automatic color adjustment for dark theme
-  tinycolor: ^1.0.3
 
   # Content
   ## Video player with controls
   chewie: ^1.0.0
-  video_player: ^2.0.0
+  video_player: ^2.0.2
   ## Markdown renderer
-  flutter_markdown: ^0.6.0
+  flutter_markdown: ^0.6.1
 
 dev_dependencies:
   flutter_test:
