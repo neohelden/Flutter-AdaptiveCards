@@ -89,7 +89,7 @@ This updates the golden files for the sample cards. Depending on your operating 
 docker run -it -v `pwd`:/app cirrusci/flutter:stable bash
 
 # and inside the container execute
-cd /app
+cd app/
 pub get
 flutter test --update-goldens
 
