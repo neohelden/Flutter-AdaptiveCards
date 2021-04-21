@@ -168,19 +168,19 @@ void main() {
     expect(find.widgetWithText(ElevatedButton, "Tofu"), findsOneWidget);
 
     await tester.tap(find.widgetWithText(ElevatedButton, 'Steak'));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-steak.png'));
 
     await tester.tap(find.widgetWithText(ElevatedButton, 'Chicken'));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-chicken.png'));
 
     await tester.tap(find.widgetWithText(ElevatedButton, 'Tofu'));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-tofu.png'));
