@@ -107,21 +107,6 @@ String getDayOfMonthSuffix(final int n) {
   }
 }
 
-Color adjustColorToFitDarkTheme(Color color, Brightness? brightness) {
-  return color;
-
-  // TODO add tiny color when null safety version is released
- /* if (brightness == Brightness.light) {
-    return color;
-  } else {
-    TinyColor tinyColor = TinyColor(color);
-    double luminance = tinyColor.getLuminance();
-    if (tinyColor.isDark()) return tinyColor.lighten(((1 - luminance) * 100).round()).color;
-    if (tinyColor.isLight()) return tinyColor.darken(((0 + luminance) * 100).round()).color;
-    return color;
-  }*/
-}
-
 Color? getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({
   ReferenceResolver? resolver,
   required Map adaptiveMap,
@@ -145,11 +130,7 @@ Color? getBackgroundColor(
   String style = adaptiveMap?["style"]?.toString().toLowerCase() ?? "default";
 
   String? color = resolver.hostConfig!["containerStyles"][style]["backgroundColor"];
-
   var backgroundColor = parseColor(color);
-  if (backgroundColor != null && approximateDarkThemeColors!) {
-    backgroundColor = adjustColorToFitDarkTheme(backgroundColor, brightness);
-  }
   return backgroundColor;
 }
 

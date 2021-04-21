@@ -30,7 +30,8 @@ flutter:
     - assets/
     - lib/easy_card
     - lib/adaptive_card_string
-    - lib/host_config
+    - lib/host_config_dark
+    - lib/host_config_light
     - lib/activity_update
     - lib/text_block/
     - lib/image/

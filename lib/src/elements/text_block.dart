@@ -92,9 +92,6 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
   // Probably want to pass context down the tree, until now -> this
   Color? getColor(Brightness brightness) {
     Color? color = resolver!.resolveForegroundColor(adaptiveMap["color"], adaptiveMap["isSubtle"]);
-    if (color != null && widgetState!.widget.approximateDarkThemeColors) {
-      color = adjustColorToFitDarkTheme(color, brightness);
-    }
     return color;
   }
 

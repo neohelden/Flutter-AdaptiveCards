@@ -83,10 +83,6 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
 
   Color? getColor(Brightness brightness) {
     var color = resolver!.resolveForegroundColor(adaptiveMap["style"], adaptiveMap["isSubtle"]);
-
-    if (color != null && widgetState!.widget.approximateDarkThemeColors) {
-      color = adjustColorToFitDarkTheme(color, brightness);
-    }
     return color;
   }
 }

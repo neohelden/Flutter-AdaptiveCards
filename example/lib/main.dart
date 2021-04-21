@@ -1,6 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:example/action_set/action_set_page.dart';
-import 'package:example/custom_host_config/custom_host_config.dart';
 import 'package:example/render_time/render_time_page.dart';
 import 'package:example/samples/samples.dart';
 import 'package:example/text_block/text_block_examples_page.dart';
@@ -51,7 +50,6 @@ class MyApp extends StatelessWidget {
           home: MyHomePage(),
           routes: {
             "Samples": (context) => SamplesPage(),
-            "Samples with dynamic HostConfig": (context) => DynamicHostConfigPage(),
             "TextBlock": (context) => TextBlockPage(),
             "Image": (context) => ImagePage(),
             "Container": (context) => ContainerPage(),
@@ -125,7 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           getButton("Samples"),
-          getButton("Samples with dynamic HostConfig"),
           getRow(["Image", "ImageSet"]),
           getButton("Media"),
           Divider(),

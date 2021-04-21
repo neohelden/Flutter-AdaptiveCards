@@ -36,8 +36,8 @@
 		"default": {
 			"foregroundColors": {
 				"default": {
-					"default": "#333333",
-					"subtle": "#EE333333"
+					"default": "#FFFFFF",
+					"subtle": "#C1C1C1"
 				},
 				"dark": {
 					"default": "#000000",
@@ -64,7 +64,7 @@
 					"subtle": "#DDFF0000"
 				}
 			},
-			"backgroundColor": "#FFFFFF"
+			"backgroundColor": "#424242"
 		},
 		"emphasis": {
 			"foregroundColors": {

@@ -37,7 +37,8 @@ class DemoAdaptiveCard extends StatefulWidget {
   _DemoAdaptiveCardState createState() => new _DemoAdaptiveCardState();
 }
 
-class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepAliveClientMixin {
+class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>
+    with AutomaticKeepAliveClientMixin {
   late String jsonFile;
 
   @override
@@ -51,13 +52,17 @@ class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepA
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    var isLight = Theme.of(context).brightness == Brightness.light;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
           AdaptiveCard.asset(
             assetPath: widget.assetPath,
-            hostConfigPath: "lib/host_config",
+            hostConfigPath:
+                isLight ? "lib/host_config_light" : "lib/host_config_dark",
             showDebugJson: false,
             hostConfig: widget.hostConfig,
             approximateDarkThemeColors: widget.approximateDarkThemeColors,
