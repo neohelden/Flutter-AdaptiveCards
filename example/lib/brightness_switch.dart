@@ -10,7 +10,11 @@ class BrightnessSwitch extends StatelessWidget {
       activeTrackColor: Colors.white,
       activeColor: Colors.grey,
       inactiveTrackColor: Colors.white,
-      onChanged: (value) => AdaptiveTheme.of(context).toggleThemeMode(),
+      onChanged: (changeToLight) {
+        var mode =
+            changeToLight ? AdaptiveThemeMode.light : AdaptiveThemeMode.dark;
+        AdaptiveTheme.of(context).setThemeMode(mode);
+      },
     );
   }
 }
