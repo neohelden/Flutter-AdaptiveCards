@@ -13,14 +13,14 @@ dependencies:
   # General
   http: ^0.13.1
   provider: ^5.0.0
-  uuid: ^3.0.2
+  uuid: ^3.0.4
   ## Localization
   intl: ^0.17.0
 
   # Content
   ## Video player with controls
   chewie: ^1.0.0
-  video_player: ^2.0.2
+  video_player: ^2.1.1
   ## Markdown renderer
   flutter_markdown: ^0.6.1
 
@@ -28,6 +28,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.14.3
-  mockito: ^5.0.2
+  mockito: ^5.0.5
 
 flutter:

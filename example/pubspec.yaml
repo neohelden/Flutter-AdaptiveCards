@@ -14,7 +14,7 @@ dependencies:
   url_launcher: ^6.0.2
   http: ^0.13.1
 
-  adaptive_theme: ^2.0.0
+  adaptive_theme: ^2.2.0
 
   flutter_adaptive_cards:
     path: ..
