@@ -41,8 +41,6 @@ class _AdaptiveContainerState extends State<AdaptiveContainer>
         getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors:
-          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 

@@ -61,6 +61,10 @@ class _RenderTimePageState extends State<RenderTimePage> {
 
   @override
   Widget build(BuildContext context) {
+    var isLight = Theme
+        .of(context)
+        .brightness == Brightness.light;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Render Time (ListView)"),
@@ -72,10 +76,11 @@ class _RenderTimePageState extends State<RenderTimePage> {
         alignment: Alignment.centerLeft,
         child: AdaptiveCard.memory(
           content: content,
-          hostConfigPath: "lib/host_config",
+          hostConfigPath: isLight
+              ? "lib/host_config_light"
+              : "lib/host_config_dark",
           showDebugJson: false,
           listView: true,
-          approximateDarkThemeColors: true,
           supportMarkdown: false,
         ),
       ),

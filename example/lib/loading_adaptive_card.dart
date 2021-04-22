@@ -9,7 +9,6 @@ class DemoAdaptiveCard extends StatefulWidget {
     this.assetPath, {
     Key? key,
     this.hostConfig,
-    this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : super(key: key);
 
@@ -18,9 +17,6 @@ class DemoAdaptiveCard extends StatefulWidget {
 
   /// The host config.
   final String? hostConfig;
-
-  /// Whether dart theme is approximated.
-  final bool approximateDarkThemeColors;
 
   /// Whether markdown is rendered.
   final bool supportMarkdown;
@@ -57,7 +53,6 @@ class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>
                 isLight ? "lib/host_config_light" : "lib/host_config_dark",
             showDebugJson: false,
             hostConfig: widget.hostConfig,
-            approximateDarkThemeColors: widget.approximateDarkThemeColors,
             supportMarkdown: widget.supportMarkdown,
           ),
           TextButton(

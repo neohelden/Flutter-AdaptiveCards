@@ -128,7 +128,6 @@ String getDayOfMonthSuffix(final int dayOfMonth) {
 Color? getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({
   ReferenceResolver? resolver,
   required Map adaptiveMap,
-  bool? approximateDarkThemeColors,
   Brightness? brightness,
 }) {
   if (adaptiveMap["backgroundImage"] != null) return null;
