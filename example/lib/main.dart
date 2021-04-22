@@ -1,6 +1,5 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:example/action_set/action_set_page.dart';
-import 'package:example/custom_host_config/custom_host_config.dart';
 import 'package:example/render_time/render_time_page.dart';
 import 'package:example/samples/samples.dart';
 import 'package:example/text_block/text_block_examples_page.dart';
@@ -28,26 +27,29 @@ import 'media/media.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DynamicTheme(
-      defaultBrightness: Brightness.dark,
-      data: (brightness) => new ThemeData(
+    return AdaptiveTheme(
+      initial: AdaptiveThemeMode.dark,
+      light: ThemeData(
         primarySwatch: Colors.blue,
-        brightness: brightness,
+        brightness: Brightness.light,
       ),
-      themedWidgetBuilder: (context, theme) {
-        return new MaterialApp(
+      dark: ThemeData(
+        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+      ),
+      builder: (context, theme) {
+        return MaterialApp(
           title: 'Flutter Adaptive Cards',
           theme: theme,
-          home: new MyHomePage(),
+          home: MyHomePage(),
           routes: {
             "Samples": (context) => SamplesPage(),
-            "Samples with dynamic HostConfig": (context) => DynamicHostConfigPage(),
             "TextBlock": (context) => TextBlockPage(),
             "Image": (context) => ImagePage(),
             "Container": (context) => ContainerPage(),
@@ -77,15 +79,15 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Flutter Adaptive Cards"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Flutter Adaptive Cards"),
         actions: [
           BrightnessSwitch(),
           MaterialButton(
@@ -121,7 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           getButton("Samples"),
-          getButton("Samples with dynamic HostConfig"),
           getRow(["Image", "ImageSet"]),
           getButton("Media"),
           Divider(),

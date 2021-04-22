@@ -4,7 +4,7 @@ import '../additional.dart';
 import '../base.dart';
 
 class AdaptiveChoiceSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveChoiceSet({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveChoiceSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -14,13 +14,13 @@ class AdaptiveChoiceSet extends StatefulWidget with AdaptiveElementWidgetMixin {
 
 class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInputMixin, AdaptiveElementMixin {
   // Map from title to value
-  Map<String, String> choices = Map();
+  Map<String?, String> choices = Map();
 
   // Contains the values (the things to send as request)
-  Set<String> _selectedChoices = Set();
+  Set<String?> _selectedChoices = Set();
 
-  bool isCompact;
-  bool isMultiSelect;
+  late bool isCompact;
+  late bool isMultiSelect;
 
   @override
   void initState() {
@@ -30,12 +30,12 @@ class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInpu
     }
     isCompact = loadCompact();
     isMultiSelect = adaptiveMap["isMultiSelect"] ?? false;
-    _selectedChoices.addAll(value.split(","));
+    _selectedChoices.addAll(value!.split(","));
   }
 
   @override
-  void appendInput(Map map) {
-    map[id] = _selectedChoices.join(',');
+  void appendInput(Map? map) {
+    map![id] = _selectedChoices.join(',');
   }
 
   @override
@@ -68,7 +68,7 @@ class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInpu
       items: choices.keys
           .map((choice) => DropdownMenuItem<String>(
                 value: choices[choice],
-                child: Text(choice),
+                child: Text(choice!),
               ))
           .toList(),
       onChanged: select,
@@ -79,11 +79,11 @@ class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInpu
   Widget _buildExpandedSingleSelect() {
     return Column(
       children: choices.keys.map((key) {
-        return RadioListTile<String>(
+        return RadioListTile<String?>(
           value: choices[key],
           onChanged: select,
           groupValue: _selectedChoices.contains(choices[key]) ? choices[key] : null,
-          title: Text(key),
+          title: Text(key!),
         );
       }).toList(),
     );
@@ -98,13 +98,13 @@ class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInpu
           onChanged: (_) {
             select(choices[key]);
           },
-          title: Text(key),
+          title: Text(key!),
         );
       }).toList(),
     );
   }
 
-  void select(String choice) {
+  void select(String? choice) {
     if (!isMultiSelect) {
       _selectedChoices.clear();
       _selectedChoices.add(choice);

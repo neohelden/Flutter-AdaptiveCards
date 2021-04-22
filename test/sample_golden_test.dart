@@ -27,7 +27,7 @@ void main() {
   // Deliver actual images
   setUp(() async {
     HttpOverrides.global = MyTestHttpOverrides();
-    WidgetsBinding.instance.renderView.configuration =
+    WidgetsBinding.instance!.renderView.configuration =
         TestViewConfiguration(size: const Size(500, 700));
 
     final fontData = File('assets/fonts/Roboto/Roboto-Regular.ttf')
@@ -68,17 +68,17 @@ void main() {
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample1-base.png'));
 
-    expect(find.widgetWithText(RaisedButton, 'Set due date'), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, 'Set due date'), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(RaisedButton, 'Set due date'));
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Set due date'));
     await tester.pump();
 
     await expectLater(find.byKey(key),
         matchesGoldenFile('gold_files/sample1_set_due_date.png'));
 
-    expect(find.widgetWithText(RaisedButton, "OK"), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, "OK"), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(RaisedButton, "Comment"));
+    await tester.tap(find.widgetWithText(ElevatedButton, "Comment"));
     await tester.pump();
 
     await expectLater(
@@ -98,17 +98,17 @@ void main() {
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample2-base.png'));
 
-    expect(find.widgetWithText(RaisedButton, "I'll be late"), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, "I'll be late"), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(RaisedButton, "I'll be late"));
+    await tester.tap(find.widgetWithText(ElevatedButton, "I'll be late"));
     await tester.pumpAndSettle();
 
     await expectLater(find.byKey(key),
         matchesGoldenFile('gold_files/sample2_ill_be_late.png'));
 
-    expect(find.widgetWithText(RaisedButton, 'Snooze'), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, 'Snooze'), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(RaisedButton, 'Snooze'));
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Snooze'));
     await tester.pumpAndSettle();
 
     await expectLater(
@@ -127,7 +127,6 @@ void main() {
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample3-base.png'));
-    await tester.pump(Duration(seconds: 1));
   });
 
   testWidgets('Golden Sample 4', (tester) async {
@@ -157,27 +156,29 @@ void main() {
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-base.png'));
 
-    expect(find.widgetWithText(RaisedButton, "Steak"), findsOneWidget);
-    expect(find.widgetWithText(RaisedButton, "Chicken"), findsOneWidget);
-    expect(find.widgetWithText(RaisedButton, "Tofu"), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, "Steak"), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, "Chicken"), findsOneWidget);
+    expect(find.widgetWithText(ElevatedButton, "Tofu"), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(RaisedButton, 'Steak'));
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Steak'));
     await tester.pump();
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-steak.png'));
 
-    await tester.tap(find.widgetWithText(RaisedButton, 'Chicken'));
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Chicken'));
     await tester.pump();
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-chicken.png'));
 
-    await tester.tap(find.widgetWithText(RaisedButton, 'Tofu'));
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Tofu'));
     await tester.pump();
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample5-tofu.png'));
+
+    await tester.pumpAndSettle(const Duration(seconds: 5));
   });
   // TODO add other tests
   testWidgets('Golden Sample 14', (tester) async {
@@ -192,7 +193,5 @@ void main() {
 
     await expectLater(
         find.byKey(key), matchesGoldenFile('gold_files/sample14-base.png'));
-
-    await tester.pump(Duration(seconds: 1));
   });
 }

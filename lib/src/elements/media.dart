@@ -7,7 +7,7 @@ import '../base.dart';
 import '../utils.dart';
 
 class AdaptiveMedia extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveMedia({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveMedia({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -17,12 +17,12 @@ class AdaptiveMedia extends StatefulWidget with AdaptiveElementWidgetMixin {
 
 class _AdaptiveMediaState extends State<AdaptiveMedia>
     with AdaptiveElementMixin {
-  VideoPlayerController videoPlayerController;
-  ChewieController controller;
+  VideoPlayerController? videoPlayerController;
+  ChewieController? controller;
 
-  String sourceUrl;
-  String postUrl;
-  String altText;
+  String? sourceUrl;
+  String? postUrl;
+  String? altText;
 
   FadeAnimation imageFadeAnim =
       FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
@@ -37,15 +37,15 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
   }
 
   Future<void> initializePlayer() async {
-    videoPlayerController = VideoPlayerController.network(sourceUrl);
+    videoPlayerController = VideoPlayerController.network(sourceUrl!);
 
-    await videoPlayerController.initialize();
+    await videoPlayerController!.initialize();
 
     controller = ChewieController(
       aspectRatio: 3 / 2,
       autoPlay: false,
       looping: true,
-      videoPlayerController: videoPlayerController,
+      videoPlayerController: videoPlayerController!,
     );
 
     setState(() {});
@@ -53,8 +53,8 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
 
   @override
   void dispose() {
-    videoPlayerController.dispose();
-    controller.dispose();
+    videoPlayerController?.dispose();
+    controller?.dispose();
     super.dispose();
   }
 
@@ -62,12 +62,12 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
   Widget build(BuildContext context) {
     Widget getVideoPlayer() {
       return Chewie(
-        controller: controller,
+        controller: controller!,
       );
     }
 
     Widget getPlaceholder() {
-      return postUrl != null ? Image.network(postUrl) : Container();
+      return postUrl != null ? Image.network(postUrl!) : Container();
     }
 
     return SeparatorElement(

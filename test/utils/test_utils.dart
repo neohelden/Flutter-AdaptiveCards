@@ -10,7 +10,7 @@ Widget getWidthDefaultHostConfig(String name) {
   return getWidget(name, 'host_config');
 }
 
-Map getDefaultHostConfig() {
+Map? getDefaultHostConfig() {
   var hostConfigFile = File('host_configs/host_config');
   String config = hostConfigFile.readAsStringSync();
   return json.decode(config);
@@ -26,6 +26,7 @@ Widget getWidget(String path, String hostConfigPath) {
     hostConfig,
     onSubmit: (_) {},
     onOpenUrl: (_) {},
+    listView: false,
   );
 
   return MaterialApp(

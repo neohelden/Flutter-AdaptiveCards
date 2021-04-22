@@ -4,7 +4,7 @@ import '../additional.dart';
 import '../base.dart';
 
 class AdaptiveToggle extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveToggle({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveToggle({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -15,10 +15,10 @@ class AdaptiveToggle extends StatefulWidget with AdaptiveElementWidgetMixin {
 class _AdaptiveToggleState extends State<AdaptiveToggle> with AdaptiveInputMixin, AdaptiveElementMixin {
   bool boolValue = false;
 
-  String valueOff;
-  String valueOn;
+  String? valueOff;
+  String? valueOn;
 
-  String title;
+  late String title;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _AdaptiveToggleState extends State<AdaptiveToggle> with AdaptiveInputMixin
   }
 
   @override
-  void appendInput(Map map) {
-    map[id] = boolValue ? valueOn : valueOff;
+  void appendInput(Map? map) {
+    map![id] = boolValue ? valueOn : valueOff;
   }
 }

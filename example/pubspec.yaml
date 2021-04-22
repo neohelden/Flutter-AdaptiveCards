@@ -5,19 +5,16 @@ homepage: https://neohelden.com
 version: 0.1.0
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  dynamic_theme:
-    git:
-      url: https://github.com/Norbert515/dynamic_theme.git
-      ref: d4e2e04ffab14ea315b9a34a32cd8ac5ee21c763
+  url_launcher: ^6.0.2
+  http: ^0.13.1
 
-  url_launcher: ^5.4.7
-  http: ^0.13.0-nullsafety.0
+  adaptive_theme: ^2.2.0
 
   flutter_adaptive_cards:
     path: ..
@@ -33,7 +30,8 @@ flutter:
     - assets/
     - lib/easy_card
     - lib/adaptive_card_string
-    - lib/host_config
+    - lib/host_config_dark
+    - lib/host_config_light
     - lib/activity_update
     - lib/text_block/
     - lib/image/

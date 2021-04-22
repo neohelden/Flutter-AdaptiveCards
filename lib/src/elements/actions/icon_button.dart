@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../../base.dart';
 
 class IconButtonAction extends StatefulWidget with AdaptiveElementWidgetMixin {
-  IconButtonAction({Key key, this.adaptiveMap, this.onTapped}) : super(key: key);
+  IconButtonAction({Key? key, required this.adaptiveMap, this.onTapped}) : super(key: key);
 
   final Map adaptiveMap;
 
-  final VoidCallback onTapped;
+  final VoidCallback? onTapped;
 
   @override
   _IconButtonActionState createState() => _IconButtonActionState();
 }
 
 class _IconButtonActionState extends State<IconButtonAction> with AdaptiveActionMixin, AdaptiveElementMixin {
-  String iconUrl;
+  String? iconUrl;
 
   @override
   void initState() {
@@ -24,24 +24,24 @@ class _IconButtonActionState extends State<IconButtonAction> with AdaptiveAction
 
   @override
   Widget build(BuildContext context) {
-    Widget result = RaisedButton(
+    Widget result = ElevatedButton(
       onPressed: onTapped,
-      child: Text(title),
+      child: Text(title!),
     );
 
     if (iconUrl != null) {
-      result = RaisedButton.icon(
+      result = ElevatedButton.icon(
         onPressed: onTapped,
         icon: Image.network(
-          iconUrl,
+          iconUrl!,
           height: 36.0,
         ),
-        label: Text(title),
+        label: Text(title!),
       );
     }
     return result;
   }
 
   @override
-  void onTapped() => widget.onTapped();
+  void onTapped() => widget.onTapped!();
 }

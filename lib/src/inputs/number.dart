@@ -5,7 +5,7 @@ import '../additional.dart';
 import '../base.dart';
 
 class AdaptiveNumberInput extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveNumberInput({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveNumberInput({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -17,14 +17,14 @@ class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
     with AdaptiveTextualInputMixin, AdaptiveInputMixin, AdaptiveElementMixin {
   TextEditingController controller = TextEditingController();
 
-  int min;
-  int max;
+  int? min;
+  int? max;
 
   @override
   void initState() {
     super.initState();
 
-    controller.text = value;
+    controller.text = value!;
     min = adaptiveMap["min"];
     max = adaptiveMap["max"];
   }
@@ -39,7 +39,7 @@ class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
           TextInputFormatter.withFunction((oldVal, newVal) {
             if (newVal.text == "") return newVal;
             int newNumber = int.parse(newVal.text);
-            if (newNumber >= min && newNumber <= max) return newVal;
+            if (newNumber >= min! && newNumber <= max!) return newVal;
             return oldVal;
           })
         ],
@@ -52,7 +52,7 @@ class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
   }
 
   @override
-  void appendInput(Map map) {
-    map[id] = controller.text;
+  void appendInput(Map? map) {
+    map![id] = controller.text;
   }
 }

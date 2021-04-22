@@ -6,7 +6,7 @@ import 'base.dart';
 import 'elements/actions/show_card.dart';
 
 class AdaptiveCardElement extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveCardElement({Key key, this.adaptiveMap, this.listView}) : super(key: UniqueKey());
+  AdaptiveCardElement({Key? key, required this.adaptiveMap, required this.listView}) : super(key: UniqueKey());
 
   final Map adaptiveMap;
   final bool listView;
@@ -16,22 +16,22 @@ class AdaptiveCardElement extends StatefulWidget with AdaptiveElementWidgetMixin
 }
 
 class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveElementMixin {
-  String currentCardId;
+  String? currentCardId;
 
-  List<Widget> children;
+  late List<Widget> children;
 
   List<Widget> allActions = [];
 
   List<AdaptiveActionShowCard> showCardActions = [];
   List<Widget> cards = [];
 
-  Axis actionsOrientation;
+  Axis? actionsOrientation;
 
-  String backgroundImage;
+  String? backgroundImage;
 
-  Map<String, Widget> _registeredCards = Map();
+  Map<String?, Widget> _registeredCards = Map();
 
-  void registerCard(String id, Widget it) {
+  void registerCard(String? id, Widget it) {
     _registeredCards[id] = it;
   }
 
@@ -39,12 +39,18 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveE
   void initState() {
     super.initState();
 
-    String stringAxis = resolver.resolve("actions", "actionsOrientation");
+    String stringAxis = resolver!.resolve("actions", "actionsOrientation");
     if (stringAxis == "Horizontal")
       actionsOrientation = Axis.horizontal;
     else if (stringAxis == "Vertical") actionsOrientation = Axis.vertical;
 
-    children = List<Map>.from(adaptiveMap["body"]).map((map) => widgetState.cardRegistry.getElement(map)).toList();
+    if (adaptiveMap["body"] != null) {
+      children = List<Map>.from(adaptiveMap["body"]).map((child) {
+        return widgetState!.cardRegistry.getElement(child as Map<String, dynamic>);
+      }).toList();
+    } else {
+      children = [];
+    }
 
     backgroundImage = adaptiveMap['backgroundImage'];
   }
@@ -52,12 +58,12 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveE
   void loadChildren() {
     if (widget.adaptiveMap.containsKey("actions")) {
       allActions = List<Map>.from(widget.adaptiveMap["actions"])
-          .map((adaptiveMap) => widgetState.cardRegistry.getAction(adaptiveMap))
+          .map((adaptiveMap) => widgetState!.cardRegistry.getAction(adaptiveMap as Map<String, dynamic>))
           .toList();
       showCardActions =
           List<AdaptiveActionShowCard>.from(allActions.where((action) => action is AdaptiveActionShowCard).toList());
       cards = List<Widget>.from(
-          showCardActions.map((action) => widgetState.cardRegistry.getElement(action.adaptiveMap["card"])).toList());
+          showCardActions.map((action) => widgetState!.cardRegistry.getElement(action.adaptiveMap["card"])).toList());
     }
   }
 
@@ -65,7 +71,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveE
   Widget build(BuildContext context) {
     loadChildren();
 
-    List<Widget> widgetChildren = children.map((element) => element).toList();
+    List<Widget?> widgetChildren = children.map((element) => element).toList();
 
     Widget actionWidget;
     if (actionsOrientation == Axis.vertical) {
@@ -108,10 +114,10 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveE
       child: widget.listView == true
           ? ListView(
               shrinkWrap: true,
-              children: widgetChildren,
+              children: widgetChildren as List<Widget>,
             )
           : Column(
-              children: widgetChildren,
+              children: widgetChildren as List<Widget>,
               crossAxisAlignment: CrossAxisAlignment.start,
             ),
     );
@@ -121,7 +127,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveE
         children: <Widget>[
           Positioned.fill(
             child: Image.network(
-              backgroundImage,
+              backgroundImage!,
               fit: BoxFit.cover,
             ),
           ),
@@ -137,7 +143,7 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement> with AdaptiveE
   }
 
   /// This is called when an [_AdaptiveActionShowCard] triggers it.
-  void showCard(String id) {
+  void showCard(String? id) {
     if (currentCardId == id) {
       currentCardId = null;
     } else {

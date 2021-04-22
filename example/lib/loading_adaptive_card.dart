@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 
 class LabAdaptiveCard extends StatelessWidget {
-  const LabAdaptiveCard({Key key, this.payload}) : super(key: key);
+  const LabAdaptiveCard({Key? key, required this.payload}) : super(key: key);
 
   final String payload;
 
@@ -22,14 +22,14 @@ class LabAdaptiveCard extends StatelessWidget {
 class DemoAdaptiveCard extends StatefulWidget {
   const DemoAdaptiveCard(
     this.assetPath, {
-    Key key,
+    Key? key,
     this.hostConfig,
     this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : super(key: key);
 
   final String assetPath;
-  final String hostConfig;
+  final String? hostConfig;
   final bool approximateDarkThemeColors;
   final bool supportMarkdown;
 
@@ -37,8 +37,9 @@ class DemoAdaptiveCard extends StatefulWidget {
   _DemoAdaptiveCardState createState() => new _DemoAdaptiveCardState();
 }
 
-class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepAliveClientMixin {
-  String jsonFile;
+class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>
+    with AutomaticKeepAliveClientMixin {
+  late String jsonFile;
 
   @override
   void initState() {
@@ -51,20 +52,24 @@ class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepA
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    var isLight = Theme.of(context).brightness == Brightness.light;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
           AdaptiveCard.asset(
             assetPath: widget.assetPath,
-            hostConfigPath: "lib/host_config",
+            hostConfigPath:
+                isLight ? "lib/host_config_light" : "lib/host_config_dark",
             showDebugJson: false,
             hostConfig: widget.hostConfig,
             approximateDarkThemeColors: widget.approximateDarkThemeColors,
             supportMarkdown: widget.supportMarkdown,
           ),
-          FlatButton(
-            textColor: Colors.indigo,
+          TextButton(
+            style: TextButton.styleFrom(primary: Colors.indigo),
             onPressed: () {
               showDialog(
                   context: context,
@@ -74,7 +79,7 @@ class _DemoAdaptiveCardState extends State<DemoAdaptiveCard> with AutomaticKeepA
                       content: SingleChildScrollView(child: Text(jsonFile)),
                       actions: <Widget>[
                         Center(
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () => Navigator.of(context).pop(),
                             child: Text("Thanks"),
                           ),

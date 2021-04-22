@@ -16,8 +16,9 @@ void main() {
       binding.addTime(Duration(seconds: 10));
       Widget widget = getWidget('example$i', 'host_config');
 
-      // This ones pretty big, we need to wrap in in a scrollable
-      if(i == 8) {
+      // 8 is pretty big, we need to wrap in in a scrollable
+      // and 15 is resizing.
+      if(i == 8 || i == 15) {
         widget = SingleChildScrollView(
           child: IntrinsicHeight(child: widget),
         );

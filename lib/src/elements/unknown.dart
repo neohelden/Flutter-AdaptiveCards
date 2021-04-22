@@ -10,11 +10,11 @@ import '../base.dart';
 ///
 /// In debug mode these contain an error message describing the problem.
 class AdaptiveUnknown extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveUnknown({Key key, this.adaptiveMap, this.type}) : super(key: key);
+  AdaptiveUnknown({Key? key, required this.adaptiveMap, this.type}) : super(key: key);
 
   final Map adaptiveMap;
 
-  final String type;
+  final String? type;
 
   @override
   _AdaptiveUnknownState createState() => _AdaptiveUnknownState();

@@ -6,7 +6,7 @@ import '../base.dart';
 import '../utils.dart';
 
 class AdaptiveFactSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveFactSet({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveFactSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -15,7 +15,7 @@ class AdaptiveFactSet extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementMixin {
-  List<Map> facts;
+  late List<Map> facts;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
     var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -68,7 +68,7 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
     );
   }
 
-  MarkdownStyleSheet loadMarkdownStyleSheet(Color color) {
+  MarkdownStyleSheet loadMarkdownStyleSheet(Color? color) {
     TextStyle style = TextStyle(color: color);
 
     return MarkdownStyleSheet(
@@ -81,12 +81,8 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
     );
   }
 
-  Color getColor(Brightness brightness) {
-    var color = resolver.resolveForegroundColor(adaptiveMap["style"], adaptiveMap["isSubtle"]);
-
-    if (color != null && widgetState.widget.approximateDarkThemeColors) {
-      color = adjustColorToFitDarkTheme(color, brightness);
-    }
+  Color? getColor(Brightness brightness) {
+    var color = resolver!.resolveForegroundColor(adaptiveMap["style"], adaptiveMap["isSubtle"]);
     return color;
   }
 }

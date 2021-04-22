@@ -37,7 +37,7 @@ There are several constructors which handle loading of the AC from different sou
 The `HostConfig` can be configured via two parameters of every constructor:
 
 1. The parameter `hostConfigPath` takes a static HostConfig which can be stored as a local asset. In this case, the [HostConfig has to be added to the pubspec.yaml](https://flutter.dev/docs/development/ui/assets-and-images) of the project.
-2. The parameter `hostConfig` takes a dynamic HostConfig as a String. This can easily be programmaticly and can e.g. be used for switching between a light and a dark theme.
+2. The parameter `hostConfig` takes a dynamic HostConfig as a String. This can be changed programmatically and can be used for switching between a light and a dark theme.
 
 If both parameters are set the `hostConfig`parameter will be used.
 
@@ -86,10 +86,11 @@ This updates the golden files for the sample cards. Depending on your operating 
 
 ```
 # run the following command in the root folder of this project
-docker run -it -v `pwd`:/app cirrusci/flutter:dev bash
+docker run -it -v `pwd`:/app cirrusci/flutter:stable bash
 
 # and inside the container execute
-cd /app
+cd app/
+pub get
 flutter test --update-goldens
 
 # afterwards commit the freshly generated sample files (after checking them)

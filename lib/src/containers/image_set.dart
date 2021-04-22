@@ -6,7 +6,7 @@ import '../elements/image.dart';
 import '../utils.dart';
 
 class AdaptiveImageSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveImageSet({Key key, this.adaptiveMap, this.supportMarkdown}) : super(key: key);
+  AdaptiveImageSet({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
 
   final Map adaptiveMap;
   final bool supportMarkdown;
@@ -16,10 +16,10 @@ class AdaptiveImageSet extends StatefulWidget with AdaptiveElementWidgetMixin {
 }
 
 class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElementMixin {
-  List<AdaptiveImage> images;
+  late List<AdaptiveImage> images;
 
-  String imageSize;
-  double maybeSize;
+  String? imageSize;
+  double? maybeSize;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElemen
     var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -59,7 +59,7 @@ class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElemen
     );
   }
 
-  double calculateSize(BoxConstraints constraints) {
+  double? calculateSize(BoxConstraints constraints) {
     if (maybeSize != null) return maybeSize;
     if (imageSize == "stretch") return constraints.maxWidth;
     // Display a maximum of 5 children
@@ -82,7 +82,7 @@ class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElemen
       imageSize = "stretch";
       return;
     }
-    int size = resolver.resolve("imageSizes", sizeDescription);
+    int size = resolver!.resolve("imageSizes", sizeDescription);
     maybeSize = size.toDouble();
   }
 }

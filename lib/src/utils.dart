@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 import 'package:intl/intl.dart';
-import 'package:tinycolor/tinycolor.dart';
 import 'package:uuid/uuid.dart';
 
 class FadeAnimation extends StatefulWidget {
   FadeAnimation({this.child, this.duration = const Duration(milliseconds: 500)});
 
-  final Widget child;
+  final Widget? child;
   final Duration duration;
 
   @override
@@ -15,7 +14,7 @@ class FadeAnimation extends StatefulWidget {
 }
 
 class _FadeAnimationState extends State<FadeAnimation> with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
   @override
   void initState() {
@@ -79,7 +78,7 @@ class FullCircleClipper extends CustomClipper<Rect> {
   bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
 }
 
-Color parseColor(String colorValue) {
+Color? parseColor(String? colorValue) {
   if (colorValue == null) return null;
   // No alpha
   if (colorValue.length == 7) {
@@ -108,48 +107,30 @@ String getDayOfMonthSuffix(final int n) {
   }
 }
 
-Color adjustColorToFitDarkTheme(Color color, Brightness brightness) {
-  if (color == null) return null;
-
-  if (brightness == Brightness.light) {
-    return color;
-  } else {
-    TinyColor tinyColor = TinyColor(color);
-    double luminance = tinyColor.getLuminance();
-    if (tinyColor.isDark()) return tinyColor.lighten(((1 - luminance) * 100).round()).color;
-    if (tinyColor.isLight()) return tinyColor.darken(((0 + luminance) * 100).round()).color;
-    return color;
-  }
-}
-
-Color getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({
-  ReferenceResolver resolver,
-  Map adaptiveMap,
-  bool approximateDarkThemeColors,
-  Brightness brightness,
+Color? getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({
+  ReferenceResolver? resolver,
+  required Map adaptiveMap,
+  bool? approximateDarkThemeColors,
+  Brightness? brightness,
 }) {
   if (adaptiveMap["backgroundImage"] != null) return null;
 
   var style = adaptiveMap["style"] ?? "default";
   if (style == "default") return null;
 
-  return getBackgroundColor(resolver, adaptiveMap, approximateDarkThemeColors, brightness);
+  return getBackgroundColor(resolver!, adaptiveMap, approximateDarkThemeColors, brightness);
 }
 
-Color getBackgroundColor(
+Color? getBackgroundColor(
   ReferenceResolver resolver,
-  Map adaptiveMap,
-  bool approximateDarkThemeColors,
-  Brightness brightness,
+  Map? adaptiveMap,
+  bool? approximateDarkThemeColors,
+  Brightness? brightness,
 ) {
-  String style = adaptiveMap["style"]?.toString()?.toLowerCase() ?? "default";
+  String style = adaptiveMap?["style"]?.toString().toLowerCase() ?? "default";
 
-  String color = resolver.hostConfig["containerStyles"][style]["backgroundColor"];
-
+  String? color = resolver.hostConfig!["containerStyles"][style]["backgroundColor"];
   var backgroundColor = parseColor(color);
-  if (backgroundColor != null && approximateDarkThemeColors) {
-    backgroundColor = adjustColorToFitDarkTheme(backgroundColor, brightness);
-  }
   return backgroundColor;
 }
 
@@ -157,7 +138,7 @@ Color getBackgroundColor(
 /// TODO this needs a bunch of tests
 String parseTextString(String text) {
   return text.replaceAllMapped(RegExp(r'{{.*}}'), (match) {
-    String res = match.group(0);
+    String res = match.group(0)!;
     String input = res.substring(2, res.length - 2);
     input = input.replaceAll(" ", "");
 
@@ -172,7 +153,7 @@ String parseTextString(String text) {
       // Wrong format
       if (items.length != 2) return res;
 
-      DateTime dateTime = DateTime.tryParse(items[0]);
+      DateTime? dateTime = DateTime.tryParse(items[0]);
 
       // TODO use locale
       DateFormat dateFormat;
@@ -193,7 +174,7 @@ String parseTextString(String text) {
       }
     } else if (type == "TIME") {
       String time = input.substring(5, input.length - 1);
-      DateTime dateTime = DateTime.tryParse(time);
+      DateTime? dateTime = DateTime.tryParse(time);
       if (dateTime == null) return res;
 
       DateFormat dateFormat = DateFormat("jm");

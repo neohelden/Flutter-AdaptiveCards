@@ -9,8 +9,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 class MockAdaptiveCardState extends Mock implements RawAdaptiveCardState {
+
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  UUIDGenerator get idGenerator => UUIDGenerator();
+
+  @override
+  String toString({DiagnosticLevel minLevel =  DiagnosticLevel.info}) {
     return "";
   }
 }
@@ -19,7 +23,6 @@ void main() {
   RawAdaptiveCardState state;
   setUp(() {
     state = MockAdaptiveCardState();
-    when(state.idGenerator).thenReturn(UUIDGenerator());
   });
 
   testWidgets('Basic types return', (tester) async {

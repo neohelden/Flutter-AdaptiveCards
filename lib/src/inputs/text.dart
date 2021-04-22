@@ -5,7 +5,7 @@ import '../additional.dart';
 import '../base.dart';
 
 class AdaptiveTextInput extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveTextInput({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveTextInput({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -16,9 +16,9 @@ class AdaptiveTextInput extends StatefulWidget with AdaptiveElementWidgetMixin {
 class _AdaptiveTextInputState extends State<AdaptiveTextInput>
     with AdaptiveTextualInputMixin, AdaptiveInputMixin, AdaptiveElementMixin {
   TextEditingController controller = TextEditingController();
-  bool isMultiline;
-  int maxLength;
-  TextInputType style;
+  late bool isMultiline;
+  int? maxLength;
+  TextInputType? style;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _AdaptiveTextInputState extends State<AdaptiveTextInput>
     isMultiline = adaptiveMap["isMultiline"] ?? false;
     maxLength = adaptiveMap["maxLength"];
     style = loadTextInputType();
-    controller.text = value;
+    controller.text = value!;
   }
 
   @override
@@ -46,11 +46,11 @@ class _AdaptiveTextInputState extends State<AdaptiveTextInput>
   }
 
   @override
-  void appendInput(Map map) {
-    map[id] = controller.text;
+  void appendInput(Map? map) {
+    map![id] = controller.text;
   }
 
-  TextInputType loadTextInputType() {
+  TextInputType? loadTextInputType() {
     /// Can be one of the following:
     /// - "text"
     /// - "tel"

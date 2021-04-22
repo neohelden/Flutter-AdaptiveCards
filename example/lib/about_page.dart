@@ -1,7 +1,6 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:dynamic_theme/theme_switcher_widgets.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -15,13 +14,11 @@ class AboutPage extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text("Change brightness"),
-            onTap: () {
-              showDialog(context: context, builder: (_) => BrightnessSwitcherDialog(
-                onSelectedTheme: (it) {
-                  DynamicTheme.of(context).setBrightness(it);
-                },
-              ));
-            },
+            onTap: () => AdaptiveTheme.of(context).toggleThemeMode(),
+            trailing: Switch(
+              value: Theme.of(context).brightness == Brightness.dark,
+              onChanged: (_) => AdaptiveTheme.of(context).toggleThemeMode(),
+            ),
           ),
           Card(
             child: Padding(
@@ -31,12 +28,18 @@ class AboutPage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset("assets/neo_logo_light.png"),
+                    child: Image.asset(Theme.of(context).brightness == Brightness.light ? "assets/neo_logo.png" : "assets/neo_logo_light.png"),
                   ),
                   Divider(),
-                  Text("Neo: AI-Assistant for Enterprise", style: Theme.of(context).textTheme.title,),
-                  SizedBox(height: 8,),
-                  Text('''
+                  Text(
+                    "Neo: AI-Assistant for Enterprise",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '''
 Neohelden is a startup from Germany developing a digital assistant for enterprise use-cases.
 
 Users can interact with Neo using voice and text and request information from third-party systems or trigger actions – essentially, they're having a conversation with B2B software systems.
@@ -44,13 +47,18 @@ Our Conversational Platform allows for easy configuration and extension of Neo's
 
 Neo has been using Adaptive Cards for a while now, and we're excited to bring them to Flutter!
                   
-                  ''', style: Theme.of(context).textTheme.body1,),
-                  SizedBox(height: 8,),
+                  ''',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
                   Align(
                     alignment: Alignment.center,
-                    child: OutlineButton(
+                    child: OutlinedButton(
                       onPressed: () {
-                        launch("https://neohelden.com/?utm_source=flutter&utm_medium=aboutButton&utm_campaign=flutterDemoApp");
+                        launch(
+                            "https://neohelden.com/?utm_source=flutter&utm_medium=aboutButton&utm_campaign=flutterDemoApp");
                       },
                       child: Text("Check out the website"),
                     ),
@@ -66,17 +74,29 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Image.asset("assets/norbert.jpg", width: 100,),
-                      SizedBox(width: 16,),
+                      Image.asset(
+                        "assets/norbert.jpg",
+                        width: 100,
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            Text("Norbert Kozsir - former Head of Flutter @Neohelden", style: Theme.of(context).textTheme.headline6,),
-                            SizedBox(height: 8,),
-                            Text("Norbert was the head of Flutter development at Neohelden and "
-                                "brought this library to life. "
-                                "He is still very active in the Flutter community and keeps rocking every day.",
-                              style: Theme.of(context).textTheme.bodyText2,),
+                            Text(
+                              "Norbert Kozsir - former Head of Flutter @Neohelden",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Norbert was the head of Flutter development at Neohelden and "
+                              "brought this library to life. "
+                              "He is still very active in the Flutter community and keeps rocking every day.",
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
                           ],
                         ),
                       ),
@@ -84,13 +104,13 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
                   ),
                   Row(
                     children: <Widget>[
-                      OutlineButton(
+                      OutlinedButton(
                         child: Text("Twitter"),
                         onPressed: () {
                           launch("https://twitter.com/norbertkozsir");
                         },
                       ),
-                      OutlineButton(
+                      OutlinedButton(
                         child: Text("Medium"),
                         onPressed: () {
                           launch("https://medium.com/@norbertkozsir");
@@ -109,16 +129,28 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Image.asset("assets/pascal.jpg", width: 100,),
-                      SizedBox(width: 16,),
+                      Image.asset(
+                        "assets/pascal.jpg",
+                        width: 100,
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            Text("Pascal Stech - Flutter Developer @Neohelden", style: Theme.of(context).textTheme.headline6,),
-                            SizedBox(height: 8,),
-                            Text("Pascal is part of the NeoSEALs team at Neohelden. He currently maintains the Flutter AdaptiveCards implementation."
-                                " He is also building the Neo Client App using Flutter.",
-                              style: Theme.of(context).textTheme.bodyText2,),
+                            Text(
+                              "Pascal Stech - Flutter Developer @Neohelden",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Pascal is part of the NeoSEALs team at Neohelden. He currently maintains the Flutter AdaptiveCards implementation."
+                              " He is also building the Neo Client App using Flutter.",
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
                           ],
                         ),
                       ),
@@ -126,7 +158,7 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
                   ),
                   Row(
                     children: <Widget>[
-                      OutlineButton(
+                      OutlinedButton(
                         child: Text("GitHub"),
                         onPressed: () {
                           launch("https://github.com/Curvel");
@@ -138,7 +170,6 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
               ),
             ),
           ),
-
         ],
       ),
     );

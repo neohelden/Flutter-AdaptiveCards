@@ -4,7 +4,7 @@ import '../../base.dart';
 import 'icon_button.dart';
 
 class AdaptiveActionOpenUrl extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveActionOpenUrl({Key key, this.adaptiveMap}) : super(key: key);
+  AdaptiveActionOpenUrl({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -13,8 +13,8 @@ class AdaptiveActionOpenUrl extends StatefulWidget with AdaptiveElementWidgetMix
 }
 
 class _AdaptiveActionOpenUrlState extends State<AdaptiveActionOpenUrl> with AdaptiveActionMixin, AdaptiveElementMixin {
-  GenericActionOpenUrl action;
-  String iconUrl;
+  late GenericActionOpenUrl action;
+  String? iconUrl;
 
   @override
   void initState() {

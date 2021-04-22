@@ -4,32 +4,30 @@ version: 0.1.2
 homepage: https://github.com/neohelden/Flutter-AdaptiveCards
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
   # General
-  http: ^0.13.0-nullsafety.0
-  provider: ^4.3.2+2
-  uuid: ^2.2.2
+  http: ^0.13.1
+  provider: ^5.0.0
+  uuid: ^3.0.4
   ## Localization
-  intl: ^0.17.0-nullsafety.2
-  ## Used for automatic color adjustment for dark theme
-  tinycolor: ^1.0.3
+  intl: ^0.17.0
 
   # Content
   ## Video player with controls
-  chewie: ^0.12.0
-  video_player: ^1.0.1
+  chewie: ^1.0.0
+  video_player: ^2.1.1
   ## Markdown renderer
-  flutter_markdown: ^0.5.1
+  flutter_markdown: ^0.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.14.3
-  mockito: ^4.1.3
+  mockito: ^5.0.5
 
 flutter:
