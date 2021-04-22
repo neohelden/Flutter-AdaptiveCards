@@ -6,7 +6,10 @@ import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
 
+/// Display a media player.
 class AdaptiveMedia extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveMedia widget.
   AdaptiveMedia({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -24,8 +27,9 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
   String? postUrl;
   String? altText;
 
-  FadeAnimation imageFadeAnim =
-      FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
+  FadeAnimation imageFadeAnim = FadeAnimation(
+    child: const Icon(Icons.play_arrow, size: 100.0),
+  );
 
   @override
   void initState() {
@@ -76,9 +80,9 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
         width: MediaQuery.of(context).size.width,
         child: AspectRatio(
           aspectRatio: 3 / 2,
-          child: controller == null ?  getPlaceholder() : getVideoPlayer(),
-        )
-      )
+          child: controller == null ? getPlaceholder() : getVideoPlayer(),
+        ),
+      ),
     );
   }
 }

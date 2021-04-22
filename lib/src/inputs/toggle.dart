@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../additional.dart';
 import '../base.dart';
 
+/// A toggle widget.
 class AdaptiveToggle extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveToggle widget.
   AdaptiveToggle({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -12,7 +15,9 @@ class AdaptiveToggle extends StatefulWidget with AdaptiveElementWidgetMixin {
   _AdaptiveToggleState createState() => _AdaptiveToggleState();
 }
 
-class _AdaptiveToggleState extends State<AdaptiveToggle> with AdaptiveInputMixin, AdaptiveElementMixin {
+class _AdaptiveToggleState extends State<AdaptiveToggle>
+    with AdaptiveInputMixin, AdaptiveElementMixin {
+
   bool boolValue = false;
 
   String? valueOff;

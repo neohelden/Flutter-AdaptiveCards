@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../additional.dart';
 import '../base.dart';
 
+/// A date input.
+///
+/// Opens an date picker when pressed.
 class AdaptiveDateInput extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveDateInput widget.
   AdaptiveDateInput({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -26,7 +31,9 @@ class _AdaptiveDateInputState extends State<AdaptiveDateInput>
       selectedDateTime = DateTime.parse(value!);
       min = DateTime.parse(adaptiveMap["min"]);
       max = DateTime.parse(adaptiveMap["max"]);
-    } catch (formatException) {}
+    } on FormatException catch (_) {
+      // TODO handle?
+    }
   }
 
   @override
@@ -38,7 +45,9 @@ class _AdaptiveDateInputState extends State<AdaptiveDateInput>
           selectedDateTime = await widgetState!.pickDate(min, max);
           setState(() {});
         },
-        child: Text(selectedDateTime == null ? placeholder! : selectedDateTime!.toIso8601String()),
+        child: Text(selectedDateTime == null
+            ? placeholder!
+            : selectedDateTime!.toIso8601String()),
       ),
     );
   }

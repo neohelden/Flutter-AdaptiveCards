@@ -5,7 +5,10 @@ import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
 
+/// Displays a list of facts.
 class AdaptiveFactSet extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates a AdaptiveFactSet widget.
   AdaptiveFactSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -14,7 +17,8 @@ class AdaptiveFactSet extends StatefulWidget with AdaptiveElementWidgetMixin {
   _AdaptiveFactSetState createState() => _AdaptiveFactSetState();
 }
 
-class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementMixin {
+class _AdaptiveFactSetState extends State<AdaptiveFactSet>
+    with AdaptiveElementMixin {
   late List<Map> facts;
 
   @override
@@ -25,10 +29,12 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
+    var backgroundColor =
+        getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors:
+          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -44,7 +50,10 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
               children: facts
                   .map((fact) => Text(
                         fact["title"],
-                        style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: color,
+                        ),
                       ))
                   .toList(),
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +78,7 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
   }
 
   MarkdownStyleSheet loadMarkdownStyleSheet(Color? color) {
-    TextStyle style = TextStyle(color: color);
+    var style = TextStyle(color: color);
 
     return MarkdownStyleSheet(
       a: style,
@@ -82,7 +91,10 @@ class _AdaptiveFactSetState extends State<AdaptiveFactSet> with AdaptiveElementM
   }
 
   Color? getColor(Brightness brightness) {
-    var color = resolver!.resolveForegroundColor(adaptiveMap["style"], adaptiveMap["isSubtle"]);
+    var color = resolver!.resolveForegroundColor(
+      colorType: adaptiveMap["style"],
+      isSubtle: adaptiveMap["isSubtle"],
+    );
     return color;
   }
 }

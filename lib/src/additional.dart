@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../flutter_adaptive_cards.dart';
 import 'base.dart';
-import 'package:provider/provider.dart';
 
+/// Draws a separator line above the [child].
 class SeparatorElement extends StatefulWidget with AdaptiveElementWidgetMixin {
+
   final Map adaptiveMap;
+
+  /// The child of the
   final Widget child;
 
-  SeparatorElement({Key? key, required this.adaptiveMap, required this.child}) : super(key: key);
+  /// Creates a SeparatorElement widget.
+  SeparatorElement({
+    Key? key,
+    required this.adaptiveMap,
+    required this.child,
+  }) : super(key: key);
 
   @override
   _SeparatorElementState createState() => _SeparatorElementState();
 }
 
-class _SeparatorElementState extends State<SeparatorElement> with AdaptiveElementMixin {
+class _SeparatorElementState extends State<SeparatorElement>
+    with AdaptiveElementMixin {
+
   double? topSpacing;
   late bool separator;
 
@@ -37,9 +48,17 @@ class _SeparatorElementState extends State<SeparatorElement> with AdaptiveElemen
   }
 }
 
+/// Handles tap actions on the [child].
 class AdaptiveTappable extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveTappable({Key? key, required this.child, required this.adaptiveMap}) : super(key: key);
 
+  /// Creates an AdaptiveTappable widget.
+  AdaptiveTappable({
+    Key? key,
+    required this.child,
+    required this.adaptiveMap,
+  }) : super(key: key);
+
+  /// The child which can be tapped on.
   final Widget child;
 
   final Map adaptiveMap;
@@ -48,14 +67,16 @@ class AdaptiveTappable extends StatefulWidget with AdaptiveElementWidgetMixin {
   _AdaptiveTappableState createState() => _AdaptiveTappableState();
 }
 
-class _AdaptiveTappableState extends State<AdaptiveTappable> with AdaptiveElementMixin {
+class _AdaptiveTappableState extends State<AdaptiveTappable>
+    with AdaptiveElementMixin {
   GenericAction? action;
 
   @override
   void initState() {
     super.initState();
     if (adaptiveMap.containsKey("selectAction")) {
-      action = widgetState!.cardRegistry.getGenericAction(adaptiveMap["selectAction"], widgetState);
+      action = widgetState!.cardRegistry
+          .getGenericAction(adaptiveMap["selectAction"], widgetState);
     }
   }
 
@@ -68,17 +89,28 @@ class _AdaptiveTappableState extends State<AdaptiveTappable> with AdaptiveElemen
   }
 }
 
+/// Provides the configured style of the [adaptiveMap] as top level container
+/// style to the [child].
 class ChildStyler extends StatelessWidget {
+  /// The style provided child.
   final Widget child;
 
+  /// The widget configuration.
   final Map adaptiveMap;
 
-  const ChildStyler({Key? key, required this.child, required this.adaptiveMap}) : super(key: key);
+  /// Creates a ChildStyler widget.
+  const ChildStyler({
+    Key? key,
+    required this.child,
+    required this.adaptiveMap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InheritedReferenceResolver(
-      resolver: context.watch<ReferenceResolver>().copyWith(style: adaptiveMap["style"]),
+      resolver: context
+          .watch<ReferenceResolver>()
+          .copyWith(style: adaptiveMap["style"]),
       child: child,
     );
   }

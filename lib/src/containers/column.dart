@@ -4,17 +4,28 @@ import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
 
+/// Displays multiple AdaptiveElements in a column.
 class AdaptiveColumn extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveColumn({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
+
+  /// Creates an AdaptiveColumn widget.
+  AdaptiveColumn({
+    Key? key,
+    required this.adaptiveMap,
+    required this.supportMarkdown,
+  }) : super(key: key);
 
   final Map adaptiveMap;
+
+  /// Whether markdown is supported.
   final bool supportMarkdown;
 
   @override
   _AdaptiveColumnState createState() => _AdaptiveColumnState();
 }
 
-class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMixin {
+class _AdaptiveColumnState extends State<AdaptiveColumn>
+    with AdaptiveElementMixin {
+
   late List<Widget> items;
 
   /// Can be "auto", "stretch" or "weighted"
@@ -38,7 +49,10 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
     super.initState();
 
     if (adaptiveMap.containsKey("selectAction")) {
-      action = widgetState!.cardRegistry.getGenericAction(adaptiveMap["selectAction"], widgetState);
+      action = widgetState!.cardRegistry.getGenericAction(
+        adaptiveMap["selectAction"],
+        widgetState,
+      );
     }
     precedingSpacing = resolver!.resolveSpacing(adaptiveMap["spacing"]);
     separator = adaptiveMap["separator"] ?? false;
@@ -52,13 +66,16 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
       } else if (toParseWidth == "stretch") {
         mode = "stretch";
       } else if (toParseWidth is int) {
-          width = toParseWidth;
-          mode = "weighted";
+        width = toParseWidth;
+        mode = "weighted";
       } else {
         var widthString = toParseWidth.toString();
 
         if (widthString.endsWith("px")) {
-          widthString = widthString.substring(0, widthString.length - 2); // remove px
+          widthString = widthString.substring(
+            0,
+            widthString.length - 2,
+          ); // remove px
           width = int.parse(widthString);
           mode = "px";
         } else {
@@ -72,7 +89,10 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
 
     if (adaptiveMap["items"] != null) {
       items = List<Map>.from(adaptiveMap["items"]).map((child) {
-        return widgetState!.cardRegistry.getElement(child as Map<String, dynamic>, parentMode: mode);
+        return widgetState!.cardRegistry.getElement(
+          child as Map<String, dynamic>,
+          parentMode: mode,
+        );
       }).toList();
     } else {
       items = [];
@@ -84,7 +104,8 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
   }
 
   MainAxisAlignment loadVerticalAlignment() {
-    String verticalAlignment = adaptiveMap["verticalContentAlignment"]?.toLowerCase() ?? "top";
+    String verticalAlignment =
+        adaptiveMap["verticalContentAlignment"]?.toLowerCase() ?? "top";
 
     switch (verticalAlignment) {
       case "top":
@@ -99,7 +120,8 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
   }
 
   CrossAxisAlignment loadHorizontalAlignment() {
-    String horizontalAlignment = adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
+    String horizontalAlignment =
+        adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
 
     switch (horizontalAlignment) {
       case "left":
@@ -114,7 +136,8 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
   }
 
   Alignment? loadHorizontalContainerAlignment() {
-    String? horizontalAlignment = adaptiveMap["horizontalAlignment"]?.toLowerCase();
+    String? horizontalAlignment =
+        adaptiveMap["horizontalAlignment"]?.toLowerCase();
 
     switch (horizontalAlignment) {
       case "left":
@@ -176,10 +199,12 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
+    var backgroundColor =
+        getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors:
+          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -213,7 +238,10 @@ class _AdaptiveColumnState extends State<AdaptiveColumn> with AdaptiveElementMix
       ],
     );
 
-    assert(mode == "auto" || mode == "stretch" || mode == "weighted" || mode == "px");
+    assert(mode == "auto" ||
+        mode == "stretch" ||
+        mode == "weighted" ||
+        mode == "px");
     if (mode == "auto") {
       return Flexible(child: result);
     } else if (mode == "stretch") {

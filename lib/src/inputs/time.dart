@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../additional.dart';
 import '../base.dart';
 
+/// A time selection input.
+///
+/// Opens a time picker when pressed.
 class AdaptiveTimeInput extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveTimeInput widget.
   AdaptiveTimeInput({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -29,7 +34,7 @@ class _AdaptiveTimeInputState extends State<AdaptiveTimeInput>
 
   TimeOfDay? parseTime(String? time) {
     if (time == null || time.isEmpty) return null;
-    List<String> times = time.split(":");
+    var times = time.split(":");
     assert(times.length == 2, "Invalid TimeOfDay format");
     return TimeOfDay(
       hour: int.parse(times[0]),
@@ -43,9 +48,10 @@ class _AdaptiveTimeInputState extends State<AdaptiveTimeInput>
       adaptiveMap: adaptiveMap,
       child: ElevatedButton(
         onPressed: () async {
-          TimeOfDay result = await widgetState!.pickTime() ?? TimeOfDay.now();
+          var result = await widgetState!.pickTime() ?? TimeOfDay.now();
           if (result.hour >= min.hour && result.hour <= max.hour) {
-            widgetState!.showError("Time must be after ${min.format(widgetState!.context)}"
+            widgetState!.showError(
+                "Time must be after ${min.format(widgetState!.context)}"
                 " and before ${max.format(widgetState!.context)}");
           } else {
             setState(() {
@@ -53,7 +59,9 @@ class _AdaptiveTimeInputState extends State<AdaptiveTimeInput>
             });
           }
         },
-        child: Text(selectedTime == null ? placeholder! : selectedTime!.format(widgetState!.context)),
+        child: Text(selectedTime == null
+            ? placeholder!
+            : selectedTime!.format(widgetState!.context)),
       ),
     );
   }

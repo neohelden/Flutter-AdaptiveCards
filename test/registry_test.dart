@@ -9,25 +9,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 class MockAdaptiveCardState extends Mock implements RawAdaptiveCardState {
-
   @override
   UUIDGenerator get idGenerator => UUIDGenerator();
 
   @override
-  String toString({DiagnosticLevel minLevel =  DiagnosticLevel.info}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return "";
   }
 }
 
 void main() {
-  RawAdaptiveCardState state;
-  setUp(() {
-    state = MockAdaptiveCardState();
-  });
-
   testWidgets('Basic types return', (tester) async {
-    CardRegistry cardRegistry = CardRegistry();
-    Widget adaptiveElement = cardRegistry.getElement({
+    var cardRegistry = CardRegistry();
+    var adaptiveElement = cardRegistry.getElement({
       "type": "TextBlock",
       "text": "Adaptive Card design session",
       "size": "large",
@@ -36,7 +30,7 @@ void main() {
 
     expect(adaptiveElement.runtimeType, equals(AdaptiveTextBlock));
 
-    Widget second = cardRegistry.getElement({
+    var second = cardRegistry.getElement({
       "type": "Media",
       "poster":
           "https://docs.microsoft.com/en-us/adaptive-cards/content/videoposter.png",
@@ -53,21 +47,21 @@ void main() {
   });
 
   testWidgets('Unknown element', (tester) async {
-    CardRegistry cardRegistry = CardRegistry();
+    var cardRegistry = CardRegistry();
 
-    Widget adaptiveElement = cardRegistry.getElement({'type': "NoType"});
+    var adaptiveElement = cardRegistry.getElement({'type': "NoType"});
 
     expect(adaptiveElement.runtimeType, equals(AdaptiveUnknown));
 
-    AdaptiveUnknown unknown = adaptiveElement as AdaptiveUnknown;
+    var unknown = adaptiveElement as AdaptiveUnknown;
 
     expect(unknown.type, equals('NoType'));
   });
 
   testWidgets('Removed element', (tester) async {
-    CardRegistry cardRegistry = CardRegistry(removedElements: ['TextBlock']);
+    var cardRegistry = CardRegistry(removedElements: ['TextBlock']);
 
-    Widget adaptiveElement = cardRegistry.getElement({
+    var adaptiveElement = cardRegistry.getElement({
       "type": "TextBlock",
       "text": "Adaptive Card design session",
       "size": "large",
@@ -76,14 +70,15 @@ void main() {
 
     expect(adaptiveElement.runtimeType, equals(AdaptiveUnknown));
 
-    AdaptiveUnknown unknown = adaptiveElement as AdaptiveUnknown;
+    var unknown = adaptiveElement as AdaptiveUnknown;
 
     expect(unknown.type, equals('TextBlock'));
   });
 
   testWidgets('Add element', (tester) async {
-    CardRegistry cardRegistry =
-        CardRegistry(addedElements: {'Test': (map) => _TestAddition()});
+    var cardRegistry = CardRegistry(
+      addedElements: {'Test': (map) => _TestAddition()},
+    );
 
     var element = cardRegistry.getElement({'type': "Test"});
 

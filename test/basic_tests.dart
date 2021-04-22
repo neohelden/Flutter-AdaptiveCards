@@ -15,7 +15,7 @@ void main() {
     final binding = tester.binding as AutomatedTestWidgetsFlutterBinding;
     binding.addTime(Duration(seconds: 10));
 
-    Widget widget = getWidthDefaultHostConfig('example1');
+    var widget = getWidthDefaultHostConfig('example1');
 
     await tester.pumpWidget(widget);
 
@@ -24,8 +24,9 @@ void main() {
 
     expect(
         find.text('Now that we have defined the main rules and features of'
-            ' the format, we need to produce a schema and publish it to GitHub. '
-            'The schema will be the starting point of our reference documentation.'),
+            ' the format, we need to produce a schema and publish it to'
+            ' GitHub. The schema will be the starting point of our reference'
+            ' documentation.'),
         findsOneWidget);
 
     expect(find.byType(Image), findsOneWidget);
@@ -40,7 +41,9 @@ void main() {
 
     expect(find.widgetWithText(ElevatedButton, "OK"), findsOneWidget);
 
-    Widget button = tester.firstWidget(find.widgetWithText(ElevatedButton, "OK"));
+    var button = tester.firstWidget(
+      find.widgetWithText(ElevatedButton, "OK"),
+    );
 
     await tester.tap(find.widgetWithText(ElevatedButton, "Comment"));
     await tester.pump();

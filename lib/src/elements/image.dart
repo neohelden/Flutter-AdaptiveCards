@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/src/additional.dart';
-import 'package:flutter_adaptive_cards/src/base.dart';
-import 'package:flutter_adaptive_cards/src/utils.dart';
 
+import '../additional.dart';
+import '../base.dart';
+import '../utils.dart';
+
+/// Displays a image.
 class AdaptiveImage extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveImage({Key? key, required this.adaptiveMap, this.parentMode = "stretch", required this.supportMarkdown}) : super(key: key);
+
+  /// Creates an AdaptiveImage widget.
+  AdaptiveImage({
+    Key? key,
+    required this.adaptiveMap,
+    this.parentMode = "stretch",
+    required this.supportMarkdown,
+  }) : super(key: key);
 
   final Map adaptiveMap;
+
+  /// The fit of the parent container.
   final String parentMode;
+
+  /// Whether markdown is supported.
   final bool supportMarkdown;
 
   @override
   _AdaptiveImageState createState() => _AdaptiveImageState();
 }
 
-class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin {
+class _AdaptiveImageState extends State<AdaptiveImage>
+    with AdaptiveElementMixin {
+
   late Alignment horizontalAlignment;
   late bool isPerson;
   double? width;
@@ -32,7 +47,7 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
   Widget build(BuildContext context) {
     //TODO alt text
 
-    BoxFit fit = BoxFit.contain;
+    var fit = BoxFit.contain;
     if (height != null && width != null) {
       fit = BoxFit.fill;
     }
@@ -67,7 +82,8 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
         children: [
           (widget.parentMode == "auto")
               ? Flexible(child: image)
-              : Expanded(child: Align(alignment: horizontalAlignment, child: image))
+              : Expanded(
+                  child: Align(alignment: horizontalAlignment, child: image))
         ],
       );
     }
@@ -79,7 +95,8 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
   }
 
   Alignment loadAlignment() {
-    String alignmentString = adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
+    String alignmentString =
+        adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
     switch (alignmentString) {
       case "left":
         return Alignment.centerLeft;
@@ -93,8 +110,7 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
   }
 
   bool loadIsPerson() {
-    if (adaptiveMap["style"] == null || adaptiveMap["style"] == "default") return false;
-    return true;
+    return !(adaptiveMap["style"] == null || adaptiveMap["style"] == "default");
   }
 
   String? get url => adaptiveMap["url"];
@@ -114,12 +130,14 @@ class _AdaptiveImageState extends State<AdaptiveImage> with AdaptiveElementMixin
     // Overwrite dynamic size if fixed size is given
     if (adaptiveMap["width"] != null) {
       var widthString = adaptiveMap["width"].toString();
-      widthString = widthString.substring(0, widthString.length - 2); // remove px
+      widthString =
+          widthString.substring(0, widthString.length - 2); // remove px
       width = int.parse(widthString);
     }
     if (adaptiveMap["height"] != null) {
       var heightString = adaptiveMap["height"].toString();
-      heightString = heightString.substring(0, heightString.length - 2); // remove px
+      heightString =
+          heightString.substring(0, heightString.length - 2); // remove px
       height = int.parse(heightString);
     }
 
