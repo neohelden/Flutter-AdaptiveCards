@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// Allows toggling between light and dark theme.
 class BrightnessSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,11 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:example/action_set/action_set_page.dart';
-import 'package:example/render_time/render_time_page.dart';
-import 'package:example/samples/samples.dart';
-import 'package:example/text_block/text_block_examples_page.dart';
-import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride;
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
 
 import 'about_page.dart';
 import 'action_open_url/action_open_url_examples_page.dart';
+import 'action_set/action_set_page.dart';
 import 'action_show_card/action_show_card_examples_page.dart';
 import 'action_submit/action_submit_examples_page.dart';
 import 'brightness_switch.dart';
@@ -24,12 +22,16 @@ import 'inputs/input_text/input_text.dart';
 import 'inputs/input_time/input_time.dart';
 import 'inputs/input_toggle/input_toggle.dart';
 import 'media/media.dart';
+import 'render_time/render_time_page.dart';
+import 'samples/samples.dart';
+import 'text_block/text_block_examples_page.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(MyApp());
 }
 
+/// The example app.
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// The home page presenting all AdaptiveCard functions.
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -115,7 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Divider(),
                   Text(
                     "Flutter-Adaptive Cards by Neohelden",
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+                    style:
+                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
                 ],

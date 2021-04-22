@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Shows information about the app and its developers.
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,10 @@ class AboutPage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(Theme.of(context).brightness == Brightness.light ? "assets/neo_logo.png" : "assets/neo_logo_light.png"),
+                    child: Image.asset(
+                        Theme.of(context).brightness == Brightness.light
+                            ? "assets/neo_logo.png"
+                            : "assets/neo_logo_light.png"),
                   ),
                   Divider(),
                   Text(
@@ -85,16 +89,18 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
                         child: Column(
                           children: <Widget>[
                             Text(
-                              "Norbert Kozsir - former Head of Flutter @Neohelden",
+                              "Norbert Kozsir - former Head of Flutter"
+                              " @Neohelden",
                               style: Theme.of(context).textTheme.headline6,
                             ),
                             SizedBox(
                               height: 8,
                             ),
                             Text(
-                              "Norbert was the head of Flutter development at Neohelden and "
-                              "brought this library to life. "
-                              "He is still very active in the Flutter community and keeps rocking every day.",
+                              "Norbert was the head of Flutter development at"
+                              " Neohelden and brought this library to life. "
+                              "He is still very active in the Flutter community"
+                              " and keeps rocking every day.",
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
                           ],
@@ -147,8 +153,12 @@ Neo has been using Adaptive Cards for a while now, and we're excited to bring th
                               height: 8,
                             ),
                             Text(
-                              "Pascal is part of the NeoSEALs team at Neohelden. He currently maintains the Flutter AdaptiveCards implementation."
-                              " He is also building the Neo Client App using Flutter.",
+                              "Pascal is part of the NeoSEALs team at"
+                              " Neohelden."
+                              " He currently maintains the Flutter"
+                              " AdaptiveCards implementation."
+                              " He is also building the Neo Client App"
+                              " using Flutter.",
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
                           ],
