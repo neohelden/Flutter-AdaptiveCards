@@ -29,8 +29,8 @@ class _AdaptiveDateInputState extends State<AdaptiveDateInput>
 
     try {
       selectedDateTime = DateTime.parse(value!);
-      min = DateTime.parse(adaptiveMap["min"]);
-      max = DateTime.parse(adaptiveMap["max"]);
+      min = DateTime.parse(adaptiveMap["min"] ?? "");
+      max = DateTime.parse(adaptiveMap["max"] ?? "");
     } on FormatException catch (_) {
       // TODO handle?
     }
