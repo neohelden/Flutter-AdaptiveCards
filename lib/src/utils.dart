@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-class FadeAnimation extends StatefulWidget {
-  FadeAnimation({this.child, this.duration = const Duration(milliseconds: 500)});
+import '../flutter_adaptive_cards.dart';
 
+/// Fades in the [child].
+class FadeAnimation extends StatefulWidget {
+
+  /// Creates a FadeAnimation widget.
+  FadeAnimation({
+    this.child,
+    this.duration = const Duration(milliseconds: 500),
+  });
+
+  /// The child which gets faded in.
   final Widget? child;
+
+  /// The duration of the fade animation.
   final Duration duration;
 
   @override
   _FadeAnimationState createState() => _FadeAnimationState();
 }
 
-class _FadeAnimationState extends State<FadeAnimation> with SingleTickerProviderStateMixin {
+class _FadeAnimationState extends State<FadeAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(duration: widget.duration, vsync: this);
+    animationController = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
     animationController.addListener(() {
       if (mounted) {
         setState(() {});
@@ -59,15 +73,11 @@ class _FadeAnimationState extends State<FadeAnimation> with SingleTickerProvider
   }
 }
 
-String firstCharacterToLowerCase(String s) => s.isNotEmpty ? s[0].toLowerCase() + s.substring(1) : "";
+/// Makes the first char of a string lower case.
+String firstCharacterToLowerCase(String s) =>
+    s.isNotEmpty ? s[0].toLowerCase() + s.substring(1) : "";
 
-class Tuple<A, B> {
-  final A a;
-  final B b;
-
-  Tuple(this.a, this.b);
-}
-
+/// A clipper to display round images.
 class FullCircleClipper extends CustomClipper<Rect> {
   @override
   Rect getClip(Size size) {
@@ -78,6 +88,7 @@ class FullCircleClipper extends CustomClipper<Rect> {
   bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
 }
 
+/// Parses a string to a color.
 Color? parseColor(String? colorValue) {
   if (colorValue == null) return null;
   // No alpha
@@ -90,12 +101,17 @@ Color? parseColor(String? colorValue) {
   }
 }
 
-String getDayOfMonthSuffix(final int n) {
-  assert(n >= 1 && n <= 31, "illegal day of month: " + n.toString());
-  if (n >= 11 && n <= 13) {
+/// Gets the correct english day suffix for the [dayOfMonth].
+String getDayOfMonthSuffix(final int dayOfMonth) {
+  assert(
+    dayOfMonth >= 1 && dayOfMonth <= 31,
+    "illegal day of month: $dayOfMonth",
+  );
+
+  if (dayOfMonth >= 11 && dayOfMonth <= 13) {
     return "th";
   }
-  switch (n % 10) {
+  switch (dayOfMonth % 10) {
     case 1:
       return "st";
     case 2:
@@ -107,6 +123,8 @@ String getDayOfMonthSuffix(final int n) {
   }
 }
 
+/// Gets the background color based on the AdaptiveElement configuration
+/// and its parent container.
 Color? getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({
   ReferenceResolver? resolver,
   required Map adaptiveMap,
@@ -118,18 +136,23 @@ Color? getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle({
   var style = adaptiveMap["style"] ?? "default";
   if (style == "default") return null;
 
-  return getBackgroundColor(resolver!, adaptiveMap, approximateDarkThemeColors, brightness);
+  return getBackgroundColor(
+    resolver: resolver!,
+    adaptiveMap: adaptiveMap,
+    brightness: brightness,
+  );
 }
 
-Color? getBackgroundColor(
-  ReferenceResolver resolver,
+/// Gets the background color of the parent container.
+Color? getBackgroundColor({
+  required ReferenceResolver resolver,
   Map? adaptiveMap,
-  bool? approximateDarkThemeColors,
   Brightness? brightness,
-) {
-  String style = adaptiveMap?["style"]?.toString().toLowerCase() ?? "default";
+}) {
+  var style = adaptiveMap?["style"]?.toString().toLowerCase() ?? "default";
 
-  String? color = resolver.hostConfig!["containerStyles"][style]["backgroundColor"];
+  String? color =
+      resolver.hostConfig!["containerStyles"][style]["backgroundColor"];
   var backgroundColor = parseColor(color);
   return backgroundColor;
 }
@@ -138,14 +161,14 @@ Color? getBackgroundColor(
 /// TODO this needs a bunch of tests
 String parseTextString(String text) {
   return text.replaceAllMapped(RegExp(r'{{.*}}'), (match) {
-    String res = match.group(0)!;
-    String input = res.substring(2, res.length - 2);
+    var res = match.group(0)!;
+    var input = res.substring(2, res.length - 2);
     input = input.replaceAll(" ", "");
 
-    String type = input.substring(0, 4);
+    var type = input.substring(0, 4);
     if (type == "DATE") {
-      String dateFunction = input.substring(5, input.length - 1);
-      List<String> items = dateFunction.split(",");
+      var dateFunction = input.substring(5, input.length - 1);
+      var items = dateFunction.split(",");
       if (items.length == 1) {
         items.add("COMPACT");
       }
@@ -153,7 +176,7 @@ String parseTextString(String text) {
       // Wrong format
       if (items.length != 2) return res;
 
-      DateTime? dateTime = DateTime.tryParse(items[0]);
+      var dateTime = DateTime.tryParse(items[0]);
 
       // TODO use locale
       DateFormat dateFormat;
@@ -164,20 +187,24 @@ String parseTextString(String text) {
         return dateFormat.format(dateTime);
       } else if (items[1] == "SHORT") {
         dateFormat = DateFormat("E, MMM d{n}, y");
-        return dateFormat.format(dateTime).replaceFirst('{n}', getDayOfMonthSuffix(dateTime.day));
+        return dateFormat
+            .format(dateTime)
+            .replaceFirst('{n}', getDayOfMonthSuffix(dateTime.day));
       } else if (items[1] == "LONG") {
         dateFormat = DateFormat("EEEE, MMMM d{n}, y");
-        return dateFormat.format(dateTime).replaceFirst('{n}', getDayOfMonthSuffix(dateTime.day));
+        return dateFormat
+            .format(dateTime)
+            .replaceFirst('{n}', getDayOfMonthSuffix(dateTime.day));
       } else {
         // Wrong format
         return res;
       }
     } else if (type == "TIME") {
-      String time = input.substring(5, input.length - 1);
-      DateTime? dateTime = DateTime.tryParse(time);
+      var time = input.substring(5, input.length - 1);
+      var dateTime = DateTime.tryParse(time);
       if (dateTime == null) return res;
 
-      DateFormat dateFormat = DateFormat("jm");
+      var dateFormat = DateFormat("jm");
 
       return dateFormat.format(dateTime);
     } else {
@@ -188,12 +215,12 @@ String parseTextString(String text) {
   });
 }
 
+/// Generates a uuid.
 class UUIDGenerator {
-  UUIDGenerator() : uuid = Uuid();
+  final Uuid _uuid = Uuid();
 
-  final Uuid uuid;
-
+  /// Returns a random uuid.
   String getId() {
-    return uuid.v1();
+    return _uuid.v1();
   }
 }

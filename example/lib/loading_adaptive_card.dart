@@ -1,25 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 
-class LabAdaptiveCard extends StatelessWidget {
-  const LabAdaptiveCard({Key? key, required this.payload}) : super(key: key);
-
-  final String payload;
-
-  @override
-  Widget build(BuildContext context) {
-    return AdaptiveCard.memory(
-      hostConfigPath: "lib/host_config",
-      content: json.decode(payload),
-      showDebugJson: true,
-    );
-  }
-}
-
+/// A AdaptiveCard with the option to see its json.
 class DemoAdaptiveCard extends StatefulWidget {
+  /// Creates a DemoAdaptiveCard.
   const DemoAdaptiveCard(
     this.assetPath, {
     Key? key,
@@ -28,13 +13,20 @@ class DemoAdaptiveCard extends StatefulWidget {
     this.supportMarkdown = true,
   }) : super(key: key);
 
+  /// The path to the card content.
   final String assetPath;
+
+  /// The host config.
   final String? hostConfig;
+
+  /// Whether dart theme is approximated.
   final bool approximateDarkThemeColors;
+
+  /// Whether markdown is rendered.
   final bool supportMarkdown;
 
   @override
-  _DemoAdaptiveCardState createState() => new _DemoAdaptiveCardState();
+  _DemoAdaptiveCardState createState() => _DemoAdaptiveCardState();
 }
 
 class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>

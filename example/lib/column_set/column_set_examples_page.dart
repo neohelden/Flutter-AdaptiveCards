@@ -1,8 +1,9 @@
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
 
 import '../brightness_switch.dart';
+import '../loading_adaptive_card.dart';
 
+/// Demonstrates the AdaptiveColumnSet.
 class ColumnSetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,8 @@ class ColumnSetPage extends StatelessWidget {
           DemoAdaptiveCard("lib/column_set/example8"),
           DemoAdaptiveCard("lib/column_set/example9"),
           DemoAdaptiveCard("lib/column_set/example10"),
-          DemoAdaptiveCard("lib/column_set/column_width_in_pixels", supportMarkdown: false),
+          DemoAdaptiveCard("lib/column_set/column_width_in_pixels",
+              supportMarkdown: false),
         ],
       ),
     );

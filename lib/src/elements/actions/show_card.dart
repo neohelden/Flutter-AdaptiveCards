@@ -4,11 +4,15 @@ import 'package:provider/provider.dart';
 import '../../adaptive_card_element.dart';
 import '../../base.dart';
 
+/// An action to switch between cards.
 class AdaptiveActionShowCard extends StatefulWidget
     with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveActionShowCard widget.
   AdaptiveActionShowCard({Key? key, required this.adaptiveMap})
       : super(key: key);
 
+  /// The widget configuration.
   final Map adaptiveMap;
 
   @override
@@ -17,6 +21,7 @@ class AdaptiveActionShowCard extends StatefulWidget
 
 class _AdaptiveActionShowCardState extends State<AdaptiveActionShowCard>
     with AdaptiveActionMixin, AdaptiveElementMixin {
+
   @override
   void initState() {
     super.initState();

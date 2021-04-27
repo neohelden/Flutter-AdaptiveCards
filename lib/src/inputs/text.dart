@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import '../additional.dart';
 import '../base.dart';
 
+/// A text input field.
 class AdaptiveTextInput extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveTextInput widget.
   AdaptiveTextInput({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -15,6 +18,7 @@ class AdaptiveTextInput extends StatefulWidget with AdaptiveElementWidgetMixin {
 
 class _AdaptiveTextInputState extends State<AdaptiveTextInput>
     with AdaptiveTextualInputMixin, AdaptiveInputMixin, AdaptiveElementMixin {
+
   TextEditingController controller = TextEditingController();
   late bool isMultiline;
   int? maxLength;

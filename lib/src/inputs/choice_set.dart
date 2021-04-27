@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../additional.dart';
 import '../base.dart';
 
+/// Allows the selection of one of multiple choices.
 class AdaptiveChoiceSet extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveChoiceSet widget.
   AdaptiveChoiceSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -12,12 +15,13 @@ class AdaptiveChoiceSet extends StatefulWidget with AdaptiveElementWidgetMixin {
   _AdaptiveChoiceSetState createState() => _AdaptiveChoiceSetState();
 }
 
-class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInputMixin, AdaptiveElementMixin {
+class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet>
+    with AdaptiveInputMixin, AdaptiveElementMixin {
   // Map from title to value
-  Map<String?, String> choices = Map();
+  Map<String?, String> choices = {};
 
   // Contains the values (the things to send as request)
-  Set<String?> _selectedChoices = Set();
+  final Set<String?> _selectedChoices = {};
 
   late bool isCompact;
   late bool isMultiSelect;
@@ -82,7 +86,8 @@ class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInpu
         return RadioListTile<String?>(
           value: choices[key],
           onChanged: select,
-          groupValue: _selectedChoices.contains(choices[key]) ? choices[key] : null,
+          groupValue:
+              _selectedChoices.contains(choices[key]) ? choices[key] : null,
           title: Text(key!),
         );
       }).toList(),
@@ -119,9 +124,16 @@ class _AdaptiveChoiceSetState extends State<AdaptiveChoiceSet> with AdaptiveInpu
   }
 
   bool loadCompact() {
-    if (!adaptiveMap.containsKey("style")) return true;
-    if (adaptiveMap["style"].toString().toLowerCase() == "compact") return true;
-    if (adaptiveMap["style"].toString().toLowerCase() == "expanded") return false;
-    throw StateError("The style of the ChoiceSet needs to be either compact or expanded");
+    if (!adaptiveMap.containsKey("style")) {
+      return true;
+    }
+    if (adaptiveMap["style"].toString().toLowerCase() == "compact") {
+      return true;
+    }
+    if (adaptiveMap["style"].toString().toLowerCase() == "expanded") {
+      return false;
+    }
+    throw StateError(
+        "The style of the ChoiceSet needs to be either compact or expanded");
   }
 }

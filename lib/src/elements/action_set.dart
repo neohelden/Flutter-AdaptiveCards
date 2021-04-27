@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/src/base.dart';
-import 'package:flutter_adaptive_cards/src/elements/unknown.dart';
+
+import '../base.dart';
 import 'actions/open_url.dart';
 import 'actions/show_card.dart';
 import 'actions/submit.dart';
+import 'unknown.dart';
 
+/// Displays row of adaptive actions.
 class ActionSet extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an ActionSet widget.
   ActionSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -20,10 +24,12 @@ class _ActionSetState extends State<ActionSet> with AdaptiveElementMixin {
   @override
   void initState() {
     super.initState();
-    List actionMaps = adaptiveMap["actions"];
-    actionMaps.forEach((action) {
-      actions.add(_getAction(action));
-    });
+    List? actionMaps = adaptiveMap["actions"];
+    if (actionMaps != null) {
+      for (var action in actionMaps) {
+        actions.add(_getAction(action));
+      }
+    }
   }
 
   @override
@@ -45,14 +51,3 @@ class _ActionSetState extends State<ActionSet> with AdaptiveElementMixin {
     return AdaptiveUnknown(adaptiveMap: map, type: stringType);
   }
 }
-
-
-
-
-
-
-
-
-
-
-

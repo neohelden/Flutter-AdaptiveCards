@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../../base.dart';
 
-class AdaptiveActionSubmit extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveActionSubmit({Key? key, required this.adaptiveMap, this.color}) : super(key: key);
+// TODO: Allow color styling via the hostconfig.
+
+/// A button which can trigger an sumbit action.
+class AdaptiveActionSubmit extends StatefulWidget
+    with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveActionSubmit widget.
+  AdaptiveActionSubmit({
+    Key? key,
+    required this.adaptiveMap,
+  }) : super(key: key);
 
   final Map adaptiveMap;
-
-  // Native styling
-  final Color? color;
 
   @override
   _AdaptiveActionSubmitState createState() => _AdaptiveActionSubmitState();
 }
 
-class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit> with AdaptiveActionMixin, AdaptiveElementMixin {
+class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit>
+    with AdaptiveActionMixin, AdaptiveElementMixin {
+
   late GenericSubmitAction action;
 
   @override
@@ -26,9 +34,6 @@ class _AdaptiveActionSubmitState extends State<AdaptiveActionSubmit> with Adapti
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: widget.color,
-      ),
       onPressed: onTapped,
       child: Text(title!, textAlign: TextAlign.center),
     );

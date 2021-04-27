@@ -4,7 +4,11 @@ import 'package:flutter/services.dart';
 import '../additional.dart';
 import '../base.dart';
 
-class AdaptiveNumberInput extends StatefulWidget with AdaptiveElementWidgetMixin {
+/// Allow the input of numbers.
+class AdaptiveNumberInput extends StatefulWidget
+    with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveNumberInput widget.
   AdaptiveNumberInput({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -15,6 +19,7 @@ class AdaptiveNumberInput extends StatefulWidget with AdaptiveElementWidgetMixin
 
 class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
     with AdaptiveTextualInputMixin, AdaptiveInputMixin, AdaptiveElementMixin {
+
   TextEditingController controller = TextEditingController();
 
   int? min;
@@ -38,7 +43,7 @@ class _AdaptiveNumberInputState extends State<AdaptiveNumberInput>
         inputFormatters: [
           TextInputFormatter.withFunction((oldVal, newVal) {
             if (newVal.text == "") return newVal;
-            int newNumber = int.parse(newVal.text);
+            var newNumber = int.parse(newVal.text);
             if (newNumber >= min! && newNumber <= max!) return newVal;
             return oldVal;
           })

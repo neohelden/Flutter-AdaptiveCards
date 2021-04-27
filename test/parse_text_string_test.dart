@@ -1,14 +1,14 @@
+import 'package:flutter_adaptive_cards/src/utils.dart';
 import 'package:test/test.dart';
-import '../lib/src/utils.dart';
 
 void main() {
   void checkIfSameAfterParse(String text) {
-    String result = parseTextString(text);
+    var result = parseTextString(text);
     expect(result, equals(text));
   }
 
   void checkCorrectTransform(String text, String result) {
-    String toTest = parseTextString(text);
+    var toTest = parseTextString(text);
     expect(toTest, equals(result));
   }
 

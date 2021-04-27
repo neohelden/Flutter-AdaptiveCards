@@ -25,6 +25,13 @@ dependencies:
   flutter_markdown: ^0.6.1
 
 dev_dependencies:
+
+  # CI/CD dependency checker
+  flutter_oss_licenses: ^1.0.1 # Null safety
+
+  # Enforces effective dart code style
+  effective_dart: ^1.3.0
+
   flutter_test:
     sdk: flutter
   test: ^1.14.3

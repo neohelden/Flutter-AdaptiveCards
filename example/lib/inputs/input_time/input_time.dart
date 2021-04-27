@@ -1,8 +1,9 @@
-import 'package:example/loading_adaptive_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../brightness_switch.dart';
+import '../../loading_adaptive_card.dart';
 
+/// Demonstrates the AdaptiveTimePicker.
 class InputTimePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

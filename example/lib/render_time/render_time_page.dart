@@ -3,6 +3,8 @@ import 'package:flutter_adaptive_cards/flutter_adaptive_cards.dart';
 
 import '../brightness_switch.dart';
 
+/// Demonstrates a huge list with multiple adaptive cards to see the performance
+/// in a scrollable list.
 class RenderTimePage extends StatefulWidget {
   @override
   _RenderTimePageState createState() => _RenderTimePageState();
@@ -13,9 +15,9 @@ class _RenderTimePageState extends State<RenderTimePage> {
 
   @override
   void initState() {
-    List body = [];
+    var body = [];
 
-    for (int i = 0; i < 1000; i++) {
+    for (var i = 0; i < 1000; i++) {
       body.add({
         "type": "ColumnSet",
         "columns": [
@@ -32,7 +34,12 @@ class _RenderTimePageState extends State<RenderTimePage> {
           {
             "type": "Column",
             "items": [
-              {"type": "TextBlock", "weight": "Bolder", "text": "$i aaaaaaaaaaaaaaaaaaaaa", "wrap": true},
+              {
+                "type": "TextBlock",
+                "weight": "Bolder",
+                "text": "$i aaaaaaaaaaaaaaaaaaaaa",
+                "wrap": true,
+              },
               {
                 "type": "TextBlock",
                 "spacing": "None",

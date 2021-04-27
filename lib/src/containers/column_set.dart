@@ -5,17 +5,28 @@ import '../base.dart';
 import '../utils.dart';
 import 'column.dart';
 
+/// Displays multiple AdaptiveElements in a column.
 class AdaptiveColumnSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveColumnSet({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
+
+  /// Creates an AdaptiveColumnSet widget.
+  AdaptiveColumnSet({
+    Key? key,
+    required this.adaptiveMap,
+    required this.supportMarkdown,
+  }) : super(key: key);
 
   final Map adaptiveMap;
+
+  /// Whether markdown is rendered.
   final bool supportMarkdown;
 
   @override
   _AdaptiveColumnSetState createState() => _AdaptiveColumnSetState();
 }
 
-class _AdaptiveColumnSetState extends State<AdaptiveColumnSet> with AdaptiveElementMixin {
+class _AdaptiveColumnSetState extends State<AdaptiveColumnSet>
+    with AdaptiveElementMixin {
+
   late List<AdaptiveColumn> columns;
   late MainAxisAlignment horizontalAlignment;
 
@@ -23,7 +34,10 @@ class _AdaptiveColumnSetState extends State<AdaptiveColumnSet> with AdaptiveElem
   void initState() {
     super.initState();
     columns = List<Map>.from(adaptiveMap["columns"] ?? [])
-        .map((child) => AdaptiveColumn(adaptiveMap: child, supportMarkdown: widget.supportMarkdown))
+        .map((child) => AdaptiveColumn(
+              adaptiveMap: child,
+              supportMarkdown: widget.supportMarkdown,
+            ))
         .toList();
 
     horizontalAlignment = loadHorizontalAlignment();
@@ -31,10 +45,12 @@ class _AdaptiveColumnSetState extends State<AdaptiveColumnSet> with AdaptiveElem
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
+    var backgroundColor =
+        getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors:
+          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -61,11 +77,12 @@ class _AdaptiveColumnSetState extends State<AdaptiveColumnSet> with AdaptiveElem
   }
 
   MainAxisAlignment loadHorizontalAlignment() {
-    String horizontalAlignment = adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
+    String horizontalAlignment =
+        adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
 
     switch (horizontalAlignment) {
       case "left":
-        return  MainAxisAlignment.start;
+        return MainAxisAlignment.start;
       case "center":
         return MainAxisAlignment.center;
       case "right":

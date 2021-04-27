@@ -4,7 +4,10 @@ import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
 
+/// A styled container for an AdaptiveElement child.
 class AdaptiveContainer extends StatefulWidget with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveContainer widget.
   AdaptiveContainer({Key? key, required this.adaptiveMap}) : super(key: key);
 
   final Map adaptiveMap;
@@ -13,7 +16,8 @@ class AdaptiveContainer extends StatefulWidget with AdaptiveElementWidgetMixin {
   _AdaptiveContainerState createState() => _AdaptiveContainerState();
 }
 
-class _AdaptiveContainerState extends State<AdaptiveContainer> with AdaptiveElementMixin {
+class _AdaptiveContainerState extends State<AdaptiveContainer>
+    with AdaptiveElementMixin {
 // TODO implement verticalContentAlignment
   late List<Widget> children;
 
@@ -22,7 +26,9 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> with AdaptiveElem
     super.initState();
     if (adaptiveMap["items"] != null) {
       children = List<Map>.from(adaptiveMap["items"]).map((child) {
-        return widgetState!.cardRegistry.getElement(child as Map<String, dynamic>);
+        return widgetState!.cardRegistry.getElement(
+          child as Map<String, dynamic>,
+        );
       }).toList();
     } else {
       children = [];
@@ -31,10 +37,12 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> with AdaptiveElem
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
+    var backgroundColor =
+        getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors:
+          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 

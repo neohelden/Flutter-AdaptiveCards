@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:provider/provider.dart';
 
 import '../../flutter_adaptive_cards.dart';
 import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
-import 'package:provider/provider.dart';
 
+/// Displays a block of text.
 class AdaptiveTextBlock extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveTextBlock({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
+
+  /// Creates a AdaptiveTextBlock widget.
+  AdaptiveTextBlock({
+    Key? key,
+    required this.adaptiveMap,
+    required this.supportMarkdown,
+  }) : super(key: key);
 
   final Map adaptiveMap;
+
+  /// Whether the text block renders markdown.
   final bool supportMarkdown;
 
   @override
   _AdaptiveTextBlockState createState() => _AdaptiveTextBlockState();
 }
 
-class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElementMixin {
+class _AdaptiveTextBlockState extends State<AdaptiveTextBlock>
+    with AdaptiveElementMixin {
   FontWeight? fontWeight;
   double? fontSize;
   late Alignment horizontalAlignment;
@@ -37,17 +47,16 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
     text = parseTextString(adaptiveMap['text']);
   }
 
-  /*child: */
-
   // TODO create own widget that parses _basic_ markdown. This might help: https://docs.flutter.io/flutter/widgets/Wrap-class.html
   @override
   Widget build(BuildContext context) {
-    var textBody = widget.supportMarkdown ? getMarkdownText(context: context) : getText();
+    var textBody =
+        widget.supportMarkdown ? getMarkdownText(context: context) : getText();
 
     return SeparatorElement(
       adaptiveMap: adaptiveMap,
       child: Align(
-        // TODO IntrinsicWidth finxed a few things, but breaks more
+        // TODO IntrinsicWidth fixed a few things, but breaks more
         alignment: horizontalAlignment,
         child: textBody,
       ),
@@ -59,7 +68,7 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
       text,
       textAlign: textAlign,
       softWrap: true,
-      overflow: maxLines == 1 ? TextOverflow.ellipsis: null,
+      overflow: maxLines == 1 ? TextOverflow.ellipsis : null,
       style: TextStyle(
         fontWeight: fontWeight,
         fontSize: fontSize,
@@ -91,12 +100,16 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
 
   // Probably want to pass context down the tree, until now -> this
   Color? getColor(Brightness brightness) {
-    Color? color = resolver!.resolveForegroundColor(adaptiveMap["color"], adaptiveMap["isSubtle"]);
+    var color = resolver!.resolveForegroundColor(
+      colorType: adaptiveMap["color"],
+      isSubtle: adaptiveMap["isSubtle"],
+    );
     return color;
   }
 
   Alignment loadAlignment() {
-    String alignmentString = widget.adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
+    String alignmentString =
+        widget.adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
 
     switch (alignmentString) {
       case "left":
@@ -111,7 +124,8 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
   }
 
   TextAlign loadTextAlign() {
-    String alignmentString = widget.adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
+    String alignmentString =
+        widget.adaptiveMap["horizontalAlignment"]?.toLowerCase() ?? "left";
 
     switch (alignmentString) {
       case "left":
@@ -136,7 +150,11 @@ class _AdaptiveTextBlockState extends State<AdaptiveTextBlock> with AdaptiveElem
   /// TODO Markdown still has some problems
   MarkdownStyleSheet loadMarkdownStyleSheet() {
     var color = getColor(Theme.of(context).brightness);
-    TextStyle style = TextStyle(fontWeight: fontWeight, fontSize: fontSize, color: color);
+    var style = TextStyle(
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      color: color,
+    );
 
     return MarkdownStyleSheet(
       a: style,

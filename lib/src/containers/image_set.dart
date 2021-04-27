@@ -5,17 +5,27 @@ import '../base.dart';
 import '../elements/image.dart';
 import '../utils.dart';
 
+/// Displays a set of images.
 class AdaptiveImageSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveImageSet({Key? key, required this.adaptiveMap, required this.supportMarkdown}) : super(key: key);
+
+  /// Creates a AdaptiveImageSet widget.
+  AdaptiveImageSet({
+    Key? key,
+    required this.adaptiveMap,
+    required this.supportMarkdown,
+  }) : super(key: key);
 
   final Map adaptiveMap;
+
+  /// Whether markdown is rendered.
   final bool supportMarkdown;
 
   @override
   _AdaptiveImageSetState createState() => _AdaptiveImageSetState();
 }
 
-class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElementMixin {
+class _AdaptiveImageSetState extends State<AdaptiveImageSet>
+    with AdaptiveElementMixin {
   late List<AdaptiveImage> images;
 
   String? imageSize;
@@ -37,10 +47,12 @@ class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElemen
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
+    var backgroundColor =
+        getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors: widgetState!.widget.approximateDarkThemeColors,
+      approximateDarkThemeColors:
+          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 
@@ -51,7 +63,12 @@ class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElemen
         child: LayoutBuilder(builder: (context, constraints) {
           return Wrap(
             //maxCrossAxisExtent: 200.0,
-            children: images.map((img) => SizedBox(width: calculateSize(constraints), child: img)).toList(),
+            children: images
+                .map((img) => SizedBox(
+                      width: calculateSize(constraints),
+                      child: img,
+                    ))
+                .toList(),
             //shrinkWrap: true,
           );
         }),
@@ -65,7 +82,7 @@ class _AdaptiveImageSetState extends State<AdaptiveImageSet> with AdaptiveElemen
     // Display a maximum of 5 children
     if (images.length >= 5) {
       return constraints.maxWidth / 5;
-    } else if (images.length == 0) {
+    } else if (images.isEmpty) {
       return 0.0;
     } else {
       return constraints.maxWidth / images.length;

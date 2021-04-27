@@ -3,8 +3,17 @@ import 'package:flutter/material.dart';
 import '../../base.dart';
 import 'icon_button.dart';
 
-class AdaptiveActionOpenUrl extends StatefulWidget with AdaptiveElementWidgetMixin {
-  AdaptiveActionOpenUrl({Key? key, required this.adaptiveMap}) : super(key: key);
+/// Displays a button which calls an openUrl callback.
+///
+/// The callback has to be handled by an DefaultAdaptiveCardHandlers.
+class AdaptiveActionOpenUrl extends StatefulWidget
+    with AdaptiveElementWidgetMixin {
+
+  /// Creates an AdaptiveActionOpenUrl widget.
+  AdaptiveActionOpenUrl({
+    Key? key,
+    required this.adaptiveMap,
+  }) : super(key: key);
 
   final Map adaptiveMap;
 
@@ -12,7 +21,9 @@ class AdaptiveActionOpenUrl extends StatefulWidget with AdaptiveElementWidgetMix
   _AdaptiveActionOpenUrlState createState() => _AdaptiveActionOpenUrlState();
 }
 
-class _AdaptiveActionOpenUrlState extends State<AdaptiveActionOpenUrl> with AdaptiveActionMixin, AdaptiveElementMixin {
+class _AdaptiveActionOpenUrlState extends State<AdaptiveActionOpenUrl>
+    with AdaptiveActionMixin, AdaptiveElementMixin {
+
   late GenericActionOpenUrl action;
   String? iconUrl;
 
@@ -26,7 +37,6 @@ class _AdaptiveActionOpenUrlState extends State<AdaptiveActionOpenUrl> with Adap
 
   @override
   Widget build(BuildContext context) {
-    // TODO
     return IconButtonAction(
       adaptiveMap: adaptiveMap,
       onTapped: onTapped,

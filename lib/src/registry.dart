@@ -22,6 +22,7 @@ import 'inputs/text.dart';
 import 'inputs/time.dart';
 import 'inputs/toggle.dart';
 
+/// Crates a widget based on an configuration map.
 typedef ElementCreator = Widget Function(Map<String, dynamic> map);
 
 /// Entry point for registering adaptive cards
@@ -36,50 +37,69 @@ typedef ElementCreator = Widget Function(Map<String, dynamic> map);
 ///
 /// 3. Deleting existing elements
 ///
-/// Delete an element even if you have provided it yourself via the [addedElements]
-///
+/// Delete an element even if you have provided it yourself via the
+/// [addedElements]
 class CardRegistry {
-  const CardRegistry(
-      {this.removedElements = const [],
-      this.addedElements = const {},
-      this.addedActions = const {},
-      this.supportMarkdown = true});
+
+  /// Creates a CardRegistry.
+  const CardRegistry({
+    this.removedElements = const [],
+    this.addedElements = const {},
+    this.addedActions = const {},
+    this.supportMarkdown = true,
+  });
 
   /// Provide custom elements to use.
   /// When providing an element which is already defined, it is overwritten
   final Map<String, ElementCreator> addedElements;
 
+  /// Add custom actions to be added.
   final Map<String, ElementCreator> addedActions;
 
   /// Remove specific elements from the list
   final List<String> removedElements;
 
-  // Due to https://github.com/flutter/flutter_markdown/issues/171,
-  // markdown support doesn't work at the same time as content alignment in a column set
+  /// Due to https://github.com/flutter/flutter_markdown/issues/171,
+  /// markdown support doesn't work at the same time as content alignment
+  /// in a column set
   final bool supportMarkdown;
 
-  Widget getElement(Map<String, dynamic> map, {String parentMode = "stretch", bool listView = false}) {
+  /// Get an AdaptiveElement from the map.
+  Widget getElement(
+    Map<String, dynamic> map, {
+    String parentMode = "stretch",
+    bool listView = false,
+  }) {
     String? stringType = map["type"];
 
-    if (removedElements.contains(stringType))
+    if (removedElements.contains(stringType)) {
       return AdaptiveUnknown(
         type: stringType,
         adaptiveMap: map,
       );
+    }
 
     if (addedElements.containsKey(stringType)) {
       return addedElements[stringType!]!(map);
     } else {
-      return _getBaseElement(map, parentMode: parentMode, supportMarkdown: supportMarkdown, listView: listView);
+      return _getBaseElement(map,
+          parentMode: parentMode,
+          supportMarkdown: supportMarkdown,
+          listView: listView);
     }
   }
 
-  GenericAction? getGenericAction(Map<String, dynamic> map, RawAdaptiveCardState? state) {
+  /// Gets an AdaptiveAction from the [map].
+  GenericAction? getGenericAction(
+    Map<String, dynamic> map,
+    RawAdaptiveCardState? state,
+  ) {
     String? stringType = map["type"];
 
     switch (stringType) {
       case "Action.ShowCard":
-        assert(false, "Action.ShowCard can only be used directly by the root card");
+        assert(false,
+            "Action.ShowCard can only be used directly by the root card");
         return null;
       case "Action.OpenUrl":
         return GenericActionOpenUrl(map, state);
@@ -90,14 +110,16 @@ class CardRegistry {
     return null;
   }
 
+  /// Gets an action from the [map].
   Widget getAction(Map<String, dynamic> map) {
     String? stringType = map["type"];
 
-    if (removedElements.contains(stringType))
+    if (removedElements.contains(stringType)) {
       return AdaptiveUnknown(
         adaptiveMap: map,
         type: stringType,
       );
+    }
 
     if (addedActions.containsKey(stringType)) {
       return addedActions[stringType!]!(map);
@@ -109,7 +131,12 @@ class CardRegistry {
   /// This returns an [AdaptiveElement] with the correct type.
   ///
   /// It looks at the [type] property and decides which object to construct
-  Widget _getBaseElement(Map<String, dynamic> map, {String parentMode = "stretch", bool supportMarkdown = false, required bool listView}) {
+  Widget _getBaseElement(
+    Map<String, dynamic> map, {
+    String parentMode = "stretch",
+    bool supportMarkdown = false,
+    required bool listView,
+  }) {
     String? stringType = map["type"];
 
     switch (stringType) {
@@ -129,7 +156,7 @@ class CardRegistry {
       case "AdaptiveCard":
         return AdaptiveCardElement(
           adaptiveMap: map,
-          listView: listView,
+          useListView: listView,
         );
       case "ColumnSet":
         return AdaptiveColumnSet(
@@ -147,7 +174,8 @@ class CardRegistry {
           adaptiveMap: map,
         );
       case "ImageSet":
-        return AdaptiveImageSet(adaptiveMap: map, supportMarkdown: supportMarkdown);
+        return AdaptiveImageSet(
+            adaptiveMap: map, supportMarkdown: supportMarkdown);
       case "Input.Text":
         return AdaptiveTextInput(adaptiveMap: map);
       case "Input.Number":
@@ -201,17 +229,23 @@ class CardRegistry {
   }
 }
 
+/// The top level adaptive card registry.
 class DefaultCardRegistry extends InheritedWidget {
+
+  /// Creates a DefaultCardRegistry.
   DefaultCardRegistry({
     Key? key,
     required this.cardRegistry,
     required Widget child,
   }) : super(key: key, child: child);
 
+  /// The card registry.
   final CardRegistry cardRegistry;
 
+  /// Provides the DefaultCardRegistry via the context.
   static CardRegistry? of(BuildContext context) {
-    DefaultCardRegistry? cardRegistry = context.dependOnInheritedWidgetOfExactType<DefaultCardRegistry>();
+    var cardRegistry =
+        context.dependOnInheritedWidgetOfExactType<DefaultCardRegistry>();
     if (cardRegistry == null) return null;
     return cardRegistry.cardRegistry;
   }

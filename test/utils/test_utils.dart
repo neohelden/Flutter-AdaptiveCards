@@ -12,7 +12,7 @@ Widget getWidthDefaultHostConfig(String name) {
 
 Map? getDefaultHostConfig() {
   var hostConfigFile = File('host_configs/host_config');
-  String config = hostConfigFile.readAsStringSync();
+  var config = hostConfigFile.readAsStringSync();
   return json.decode(config);
 }
 
