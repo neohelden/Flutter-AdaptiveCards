@@ -104,7 +104,6 @@ class AdaptiveCard extends StatefulWidget {
     this.hostConfig,
     this.listView = false,
     this.showDebugJson = true,
-    this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : super(key: key);
 
@@ -120,7 +119,6 @@ class AdaptiveCard extends StatefulWidget {
     this.onOpenUrl,
     this.listView = false,
     this.showDebugJson = true,
-    this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : adaptiveCardContentProvider = NetworkAdaptiveCardContentProvider(
             url: url, hostConfigPath: hostConfigPath, hostConfig: hostConfig);
@@ -137,7 +135,6 @@ class AdaptiveCard extends StatefulWidget {
     this.onOpenUrl,
     this.listView = false,
     this.showDebugJson = true,
-    this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : adaptiveCardContentProvider = AssetAdaptiveCardContentProvider(
             path: assetPath,
@@ -156,7 +153,6 @@ class AdaptiveCard extends StatefulWidget {
     this.onOpenUrl,
     this.listView = false,
     this.showDebugJson = true,
-    this.approximateDarkThemeColors = true,
     this.supportMarkdown = true,
   }) : adaptiveCardContentProvider = MemoryAdaptiveCardContentProvider(
             content: content,
@@ -185,9 +181,6 @@ class AdaptiveCard extends StatefulWidget {
 
   /// Whether debug json is shown under the adaptive card.
   final bool showDebugJson;
-
-  /// Whether the adaptive card approximateDarkThemeColors.
-  final bool approximateDarkThemeColors;
 
   /// Whether the adaptive cards renders markdown.
   final bool supportMarkdown;
@@ -304,7 +297,6 @@ class _AdaptiveCardState extends State<AdaptiveCard> {
       onSubmit: onSubmit,
       listView: widget.listView,
       showDebugJson: widget.showDebugJson,
-      approximateDarkThemeColors: widget.approximateDarkThemeColors,
     );
   }
 }
@@ -325,7 +317,6 @@ class RawAdaptiveCard extends StatefulWidget {
     required this.onOpenUrl,
     required this.listView,
     this.showDebugJson = true,
-    this.approximateDarkThemeColors = true,
   }) : assert(onSubmit != null, onOpenUrl != null);
 
   /// The configuration map.
@@ -344,8 +335,6 @@ class RawAdaptiveCard extends StatefulWidget {
 
   /// Whether the json of the card is shown.
   final bool showDebugJson;
-  /// Whether dark theme colors are approximated.
-  final bool approximateDarkThemeColors;
   /// Whether the AdaptiveCard uses a ListView instead of a Column.
   final bool listView;
 

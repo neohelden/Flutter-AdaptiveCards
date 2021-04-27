@@ -49,8 +49,6 @@ class _AdaptiveColumnSetState extends State<AdaptiveColumnSet>
         getBackgroundColorIfNoBackgroundImageAndNoDefaultStyle(
       resolver: resolver,
       adaptiveMap: adaptiveMap,
-      approximateDarkThemeColors:
-          widgetState!.widget.approximateDarkThemeColors,
       brightness: Theme.of(context).brightness,
     );
 

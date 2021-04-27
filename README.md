@@ -58,11 +58,6 @@ AdaptiveCard.network(
   // NOTE: this will only be shown in debug mode, this attribute does change nothing for realease builds.
   // This is very useful for debugging purposes
   showDebugJson: true,
-  // If you have not implemented explicit dark theme, Adaptive Cards will try to approximate its colors to match the dark theme
-  // so the contrast and color meaning stays the same.
-  // Turn this off, if you want to have full control over the colors when using the dark theme.
-  // NOTE: This is currently still under development
-  approximateDarkThemeColors: true,
 );
 ```
 
