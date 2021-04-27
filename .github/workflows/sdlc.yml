@@ -1,0 +1,44 @@
+name: SDLC
+on:
+  pull_request:
+    types: [opened, synchronize]
+  create:
+    tags:
+  push:
+    branches:
+      - master
+
+jobs:
+  # Run dart analysis (Checks for Effective Dart code style)
+  lint:
+    name: dart analysis
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    container:
+      image: cirrusci/flutter:stable
+    steps:
+      - uses: neohelden/checkout@v2
+      - name: Lint
+        run: |
+          flutter doctor -v
+          flutter clean
+          flutter pub get
+          flutter analyze
+
+  # Checks that no GPL license is used.
+  licenses:
+    name: GPL blocker
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    container:
+      image: cirrusci/flutter:stable
+    steps:
+      - uses: neohelden/checkout@v2
+      - name: licenses
+        run: |
+          flutter doctor -v
+          flutter clean
+          flutter pub get
+          flutter pub run flutter_oss_licenses:generate.dart
+          if [ "$(cat lib/oss_licenses.dart| grep GPL)" != "" ]; then exit 1; fi
+          echo "This product should be GPL free!"
