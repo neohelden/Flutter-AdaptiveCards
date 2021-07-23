@@ -4,32 +4,37 @@
   "version": "1.0",
   "body": [
     {
-      "type": "ImageSet",
-      "imageSize": "small",
-      "images": [
+      "type": "ColumnSet",
+      "columns": [
         {
-          "type": "Image",
-          "url": "http://adaptivecards.io/content/cats/1.png"
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "style: default",
+              "weight": "bolder"
+            },
+            {
+              "type": "Image",
+              "url": "http://connectorsdemo.azurewebsites.net/images/MSC12_Oscar_002.jpg",
+              "style": "default"
+            }
+          ]
         },
         {
-          "type": "Image",
-          "url": "http://adaptivecards.io/content/cats/2.png"
-        },
-        {
-          "type": "Image",
-          "url": "http://adaptivecards.io/content/cats/3.png"
-        },
-        {
-          "type": "Image",
-          "url": "http://adaptivecards.io/content/cats/1.png"
-        },
-        {
-          "type": "Image",
-          "url": "http://adaptivecards.io/content/cats/2.png"
-        },
-        {
-          "type": "Image",
-          "url": "http://adaptivecards.io/content/cats/3.png"
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "style: person",
+              "weight": "bolder"
+            },
+            {
+              "type": "Image",
+              "url": "http://connectorsdemo.azurewebsites.net/images/MSC12_Oscar_002.jpg",
+              "style": "person"
+            }
+          ]
         }
       ]
     }

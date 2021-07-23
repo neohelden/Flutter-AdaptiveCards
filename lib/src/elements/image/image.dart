@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../additional.dart';
-import '../base.dart';
-import '../utils.dart';
+import '../../additional.dart';
+import '../../base.dart';
+import '../../utils.dart';
+import 'cross_network_image.dart';
 
 /// Displays a image.
 class AdaptiveImage extends StatefulWidget with AdaptiveElementWidgetMixin {
-
   /// Creates an AdaptiveImage widget.
   AdaptiveImage({
     Key? key,
@@ -29,7 +29,6 @@ class AdaptiveImage extends StatefulWidget with AdaptiveElementWidgetMixin {
 
 class _AdaptiveImageState extends State<AdaptiveImage>
     with AdaptiveElementMixin {
-
   late Alignment horizontalAlignment;
   late bool isPerson;
   double? width;
@@ -47,15 +46,19 @@ class _AdaptiveImageState extends State<AdaptiveImage>
   Widget build(BuildContext context) {
     //TODO alt text
 
-    var fit = BoxFit.contain;
-    if (height != null && width != null) {
+    BoxFit? fit;
+    if (height == null && width == null) {
+      fit = BoxFit.contain;
+    } else if (height != null && width != null) {
       fit = BoxFit.fill;
     }
 
+    print("!!!Image fit: $fit, width: $width, height: $height");
+
     Widget image = AdaptiveTappable(
       adaptiveMap: adaptiveMap,
-      child: Image(
-        image: NetworkImage(url!),
+      child: CrossNetworkImage(
+        url: url!,
         fit: fit,
         width: width,
         height: height,
@@ -83,7 +86,11 @@ class _AdaptiveImageState extends State<AdaptiveImage>
           (widget.parentMode == "auto")
               ? Flexible(child: image)
               : Expanded(
-                  child: Align(alignment: horizontalAlignment, child: image))
+                  child: Align(
+                    alignment: horizontalAlignment,
+                    child: image,
+                  ),
+                )
         ],
       );
     }

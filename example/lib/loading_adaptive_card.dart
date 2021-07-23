@@ -47,13 +47,26 @@ class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
-          AdaptiveCard.asset(
-            assetPath: widget.assetPath,
-            hostConfigPath:
-                isLight ? "lib/host_config_light" : "lib/host_config_dark",
-            showDebugJson: false,
-            hostConfig: widget.hostConfig,
-            supportMarkdown: widget.supportMarkdown,
+          Padding(
+            padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+            ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 400),
+                child:   AdaptiveCard.asset(
+                  assetPath: widget.assetPath,
+                  listView: false,
+                  hostConfigPath:
+                  isLight ? "lib/host_config_light" : "lib/host_config_dark",
+                  showDebugJson: false,
+                  hostConfig: widget.hostConfig,
+                  supportMarkdown: false,
+                ),
+              ),
+            ),
           ),
           TextButton(
             style: TextButton.styleFrom(primary: Colors.indigo),

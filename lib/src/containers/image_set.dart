@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../additional.dart';
 import '../base.dart';
-import '../elements/image.dart';
+import '../elements/image/image.dart';
 import '../utils.dart';
 
 /// Displays a set of images.
