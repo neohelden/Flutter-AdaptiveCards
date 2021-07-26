@@ -162,6 +162,8 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
     var maxWidth = MediaQuery.of(context).size.width;
     var maxHeight = MediaQuery.of(context).size.height;
 
+    print("Max size $maxWidth, $maxHeight");
+
     if (_hasNaturalSize()) {
       var scale = _naturalWidth! / _naturalHeight!;
       var widthFactor = _naturalWidth! / maxWidth;
@@ -187,10 +189,13 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
 
       print("Has natural size $width, $height");
 
-      return SizedBox(
-        width: width,
-        height: height,
-        child: htmlImage,
+      return AspectRatio(
+        aspectRatio: width / height,
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: htmlImage,
+        ),
       );
     }
 
