@@ -24,6 +24,7 @@ class ImagePage extends StatelessWidget {
           DemoAdaptiveCard("lib/image/width_and_heigh_set_in_pixels"),
           DemoAdaptiveCard("lib/image/width_set_in_pixels"),
           DemoAdaptiveCard("lib/image/height_set_in_pixels"),
+          DemoAdaptiveCard("lib/image/example0"),
         ],
       ),
     );

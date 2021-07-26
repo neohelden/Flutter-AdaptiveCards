@@ -189,13 +189,10 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
 
       print("Has natural size $width, $height");
 
-      return AspectRatio(
-        aspectRatio: width / height,
-        child: SizedBox(
-          width: width,
-          height: height,
-          child: htmlImage,
-        ),
+      return sizedAspectRatioBox(
+        width: width,
+        height: height,
+        child: htmlImage,
       );
     }
 
@@ -213,18 +210,18 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
     print("height = ${widget.height} $uuid");
     if (_hasHeightAndWidth()) {
       print("_hasHeightAndWidth()");
-      return SizedBox(
-        width: widget.width,
-        height: widget.height,
+      return sizedAspectRatioBox(
+        width: widget.width!,
+        height: widget.height!,
         child: htmlImage,
       );
     } else if (_hasOnlyWidth()) {
       print("_hasOnlyWidth");
       if (_hasNaturalSize()) {
         print("_hasNaturalSize $uuid");
-        return SizedBox(
-          width: widget.width,
-          height: _scaledHeight ?? 1,
+        return sizedAspectRatioBox(
+          width: widget.width!,
+          height:  _scaledHeight ?? 1,
           child: htmlImage,
         );
       } else {
@@ -234,9 +231,9 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
       print("_hasOnlyHeight");
       if (_hasNaturalSize()) {
         print("_hasNaturalSize $uuid");
-        return SizedBox(
+        return sizedAspectRatioBox(
           width: _scaledWidth ?? 1,
-          height: widget.height,
+          height: widget.height!,
           child: htmlImage,
         );
       } else {
@@ -267,4 +264,21 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
   bool _hasOnlyWidth() => widget.width != null && widget.height == null;
 
   bool _hasNaturalSize() => _naturalWidth != null && _naturalHeight != null;
+
+  Widget sizedAspectRatioBox({
+    required double width,
+    required double height,
+    required Widget child,
+  }) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: height,
+        maxWidth: width,
+      ),
+      child: AspectRatio(
+        aspectRatio: (width / height),
+        child: child,
+      ),
+    );
+  }
 }
