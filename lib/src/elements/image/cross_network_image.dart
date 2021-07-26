@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/src/elements/image/image_size_notifier.dart';
 import 'package:universal_html/html.dart';
 import 'package:uuid/uuid.dart';
 
+import 'image_size_notifier.dart';
 import 'web_ui.dart' if (dart.library.html) 'dart:ui' as ui;
 
 /// Loads images differently for web and mobile devices.
@@ -93,7 +92,6 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
         };
         imageSizeNotifier.addListener(imageSizeListener!);
 
-
         ui.platformViewRegistry.registerViewFactory(widget.url, (viewId) {
           _imageElement = ImageElement()..src = widget.url;
           print("new $viewId");
@@ -161,48 +159,46 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
   Widget _buildScaledDownWebImage(BuildContext context) {
     var htmlImage = HtmlElementView(viewType: widget.url);
 
-    return LayoutBuilder(builder: (context, constraints) {
-      var maxWidth = constraints.maxWidth;
-      var maxHeight = constraints.maxHeight;
+    var maxWidth = MediaQuery.of(context).size.width;
+    var maxHeight = MediaQuery.of(context).size.height;
 
-      if (_hasNaturalSize()) {
-        var scale = _naturalWidth! / _naturalHeight!;
-        var widthFactor = _naturalWidth! / maxWidth;
-        var scaledHeight = _naturalHeight! / widthFactor;
-        var heightFactor = _naturalHeight! / maxHeight;
-        var scaledWidth = _naturalWidth! / heightFactor;
+    if (_hasNaturalSize()) {
+      var scale = _naturalWidth! / _naturalHeight!;
+      var widthFactor = _naturalWidth! / maxWidth;
+      var scaledHeight = _naturalHeight! / widthFactor;
+      var heightFactor = _naturalHeight! / maxHeight;
+      var scaledWidth = _naturalWidth! / heightFactor;
 
-        late double width, height;
+      late double width, height;
 
-        if (maxWidth >= _naturalWidth! && maxHeight >= _naturalHeight!) {
-          width = _naturalWidth!.toDouble();
-          height = _naturalHeight!.toDouble();
-        } else if ((scale >= 1 && scaledHeight <= maxHeight) ||
-            scaledWidth >= maxWidth) {
-          // Wider than tall
-          height = scaledHeight;
-          width = maxWidth;
-        } else {
-          // Taller than wide
-          width = scaledWidth;
-          height = maxHeight;
-        }
-
-        print("Has natural size $width, $height");
-
-        return SizedBox(
-          width: width,
-          height: height,
-          child: htmlImage,
-        );
+      if (maxWidth >= _naturalWidth! && maxHeight >= _naturalHeight!) {
+        width = _naturalWidth!.toDouble();
+        height = _naturalHeight!.toDouble();
+      } else if ((scale >= 1 && scaledHeight <= maxHeight) ||
+          scaledWidth >= maxWidth) {
+        // Wider than tall
+        height = scaledHeight;
+        width = maxWidth;
+      } else {
+        // Taller than wide
+        width = scaledWidth;
+        height = maxHeight;
       }
 
+      print("Has natural size $width, $height");
+
       return SizedBox(
-        width: 1,
-        height: 1,
+        width: width,
+        height: height,
         child: htmlImage,
       );
-    });
+    }
+
+    return SizedBox(
+      width: 1,
+      height: 1,
+      child: htmlImage,
+    );
   }
 
   Widget _buildWebImage(BuildContext context) {

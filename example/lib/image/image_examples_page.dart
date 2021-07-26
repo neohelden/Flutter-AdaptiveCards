@@ -16,14 +16,14 @@ class ImagePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-         /* DemoAdaptiveCard("lib/image/example1"),
+          DemoAdaptiveCard("lib/image/example1"),
           DemoAdaptiveCard("lib/image/example2"),
-          DemoAdaptiveCard("lib/image/example3"),*/
+          DemoAdaptiveCard("lib/image/example3"),
           DemoAdaptiveCard("lib/image/example4"),
-        /*  DemoAdaptiveCard("lib/image/example5"),
+          DemoAdaptiveCard("lib/image/example5"),
           DemoAdaptiveCard("lib/image/width_and_heigh_set_in_pixels"),
           DemoAdaptiveCard("lib/image/width_set_in_pixels"),
-          DemoAdaptiveCard("lib/image/height_set_in_pixels"),*/
+          DemoAdaptiveCard("lib/image/height_set_in_pixels"),
         ],
       ),
     );
