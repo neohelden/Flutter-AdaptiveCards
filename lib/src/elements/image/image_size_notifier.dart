@@ -17,9 +17,11 @@ class ImageSizeNotifier extends ChangeNotifier {
   int? getWidthFor(String url) => _imageWidth[url];
 
   /// Sets the size for the given url.
-  void setSizeFor(String url, {required int height, required int width}) {
-    _imageHeight[url] = height;
-    _imageWidth[url] = width;
-    notifyListeners();
+  void setSizeFor(String url, {required int? height, required int? width}) {
+    if (height != null && width != null) {
+      _imageHeight[url] = height;
+      _imageWidth[url] = width;
+      notifyListeners();
+    }
   }
 }
