@@ -56,18 +56,13 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
 
   static final imageSizeNotifier = ImageSizeNotifier();
 
-  var uuid = Uuid().v4();
-
   @override
   void initState() {
-    print("initState: $uuid");
 
     if (kIsWeb) {
       if (imageSizeNotifier.contains(widget.url)) {
         _naturalHeight = imageSizeNotifier.getHeightFor(widget.url);
         _naturalWidth = imageSizeNotifier.getWidthFor(widget.url);
-
-        print("imageHeight.containsKey(widget.url) $uuid");
 
         _calculateScaledHeightAndWidth();
 
@@ -94,14 +89,12 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
 
         ui.platformViewRegistry.registerViewFactory(widget.url, (viewId) {
           _imageElement = ImageElement()..src = widget.url;
-          print("new $viewId");
 
           _imageElementSubscription = _imageElement!.onLoad.listen((event) {
             // TODO is there a way to remove the view factory, when the widget
             // gets disposed?
             var imageElement = _imageElement;
             if (mounted && imageElement != null) {
-              print("onload $uuid");
               imageSizeNotifier.setSizeFor(
                 widget.url,
                 height: imageElement.naturalHeight,
@@ -121,14 +114,11 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) {
-      print("fit ${widget.fit}");
       if (widget.fit != null &&
           (widget.fit == BoxFit.scaleDown || widget.fit == BoxFit.contain)) {
         // Used in the image viewer screen
-        print("_buildScaledDownWebImage $uuid");
         return _buildScaledDownWebImage(context);
       } else {
-        print("_buildWebImage $uuid");
         return _buildWebImage(context);
       }
     } else {
@@ -162,8 +152,6 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
     var maxWidth = MediaQuery.of(context).size.width;
     var maxHeight = MediaQuery.of(context).size.height;
 
-    print("Max size $maxWidth, $maxHeight");
-
     if (_hasNaturalSize()) {
       var scale = _naturalWidth! / _naturalHeight!;
       var widthFactor = _naturalWidth! / maxWidth;
@@ -187,8 +175,6 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
         height = maxHeight;
       }
 
-      print("Has natural size $width, $height");
-
       return sizedAspectRatioBox(
         width: width,
         height: height,
@@ -206,19 +192,14 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
   Widget _buildWebImage(BuildContext context) {
     var htmlImage = HtmlElementView(viewType: widget.url);
 
-    print("width = ${widget.width} $uuid");
-    print("height = ${widget.height} $uuid");
     if (_hasHeightAndWidth()) {
-      print("_hasHeightAndWidth()");
       return sizedAspectRatioBox(
         width: widget.width!,
         height: widget.height!,
         child: htmlImage,
       );
     } else if (_hasOnlyWidth()) {
-      print("_hasOnlyWidth");
       if (_hasNaturalSize()) {
-        print("_hasNaturalSize $uuid");
         return sizedAspectRatioBox(
           width: widget.width!,
           height:  _scaledHeight ?? 1,
@@ -228,9 +209,7 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
         return SizedBox(width: 1, height: 1, child: htmlImage);
       }
     } else if (_hasOnlyHeight()) {
-      print("_hasOnlyHeight");
       if (_hasNaturalSize()) {
-        print("_hasNaturalSize $uuid");
         return sizedAspectRatioBox(
           width: _scaledWidth ?? 1,
           height: widget.height!,
@@ -240,7 +219,6 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
         return SizedBox(width: 1, height: 1, child: htmlImage);
       }
     } else {
-      print("htmlImage");
       return htmlImage;
     }
   }

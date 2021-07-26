@@ -53,8 +53,6 @@ class _AdaptiveImageState extends State<AdaptiveImage>
       fit = BoxFit.fill;
     }
 
-    print("!!!Image fit: $fit, width: $width, height: $height");
-
     Widget image = AdaptiveTappable(
       adaptiveMap: adaptiveMap,
       child: CrossNetworkImage(
