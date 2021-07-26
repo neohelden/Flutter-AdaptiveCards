@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 
 import 'base.dart';
 import 'elements/actions/show_card.dart';
+import 'elements/image/cross_network_image.dart';
 
 /// A top level AdaptiveCard widget.
 class AdaptiveCardElement extends StatefulWidget
     with AdaptiveElementWidgetMixin {
-
   /// Creates an AdaptiveCardElement widget.
   AdaptiveCardElement({
     Key? key,
@@ -20,7 +20,7 @@ class AdaptiveCardElement extends StatefulWidget
   final Map adaptiveMap;
 
   /// Whether the children use a scrollable ListView instead of a Column.
-  /// 
+  ///
   /// Set false if the element is already wrapped in a scrollable container.
   final bool useListView;
 
@@ -31,16 +31,15 @@ class AdaptiveCardElement extends StatefulWidget
 /// The state of a top level AdaptiveCard widget.
 class AdaptiveCardElementState extends State<AdaptiveCardElement>
     with AdaptiveElementMixin {
-
   /// The id of the adaptive card
   String? currentCardId;
-  
+
   late List<Widget> _children;
 
   List<Widget> _allActions = [];
 
   List<AdaptiveActionShowCard> _showCardActions = [];
-  
+
   // ignore: unused_field
   List<Widget> _cardsToShow = [];
 
@@ -81,18 +80,16 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
   void _loadChildren() {
     if (widget.adaptiveMap.containsKey("actions")) {
       _allActions = List<Map>.from(widget.adaptiveMap["actions"])
-          .map((adaptiveMap) =>
-          widgetState!.cardRegistry
+          .map((adaptiveMap) => widgetState!.cardRegistry
               .getAction(adaptiveMap as Map<String, dynamic>))
           .toList();
 
-      _showCardActions = List<AdaptiveActionShowCard>.from(_allActions
-          .whereType<AdaptiveActionShowCard>()
-          .toList());
+      _showCardActions = List<AdaptiveActionShowCard>.from(
+          _allActions.whereType<AdaptiveActionShowCard>().toList());
 
       _cardsToShow = List<Widget>.from(_showCardActions
           .map((action) =>
-          widgetState!.cardRegistry.getElement(action.adaptiveMap["card"]))
+              widgetState!.cardRegistry.getElement(action.adaptiveMap["card"]))
           .toList());
     }
   }
@@ -141,23 +138,20 @@ class AdaptiveCardElementState extends State<AdaptiveCardElement>
       padding: const EdgeInsets.all(8.0),
       child: widget.useListView == true
           ? ListView(
-        shrinkWrap: true,
-        children: widgetChildren as List<Widget>,
-      )
+              shrinkWrap: true,
+              children: widgetChildren as List<Widget>,
+            )
           : Column(
-        children: widgetChildren as List<Widget>,
-        crossAxisAlignment: CrossAxisAlignment.start,
-      ),
+              children: widgetChildren as List<Widget>,
+              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
     );
 
     if (_backgroundImage != null) {
       result = Stack(
         children: <Widget>[
           Positioned.fill(
-            child: Image.network(
-              _backgroundImage!,
-              fit: BoxFit.cover,
-            ),
+            child: CrossNetworkImage(url: _backgroundImage!),
           ),
           result,
         ],
