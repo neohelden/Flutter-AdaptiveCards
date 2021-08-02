@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_html/html.dart';
-import 'package:uuid/uuid.dart';
 
 import 'image_size_notifier.dart';
 import 'web_ui.dart' if (dart.library.html) 'dart:ui' as ui;
