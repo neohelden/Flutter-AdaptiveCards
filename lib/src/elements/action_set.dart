@@ -8,7 +8,6 @@ import 'unknown.dart';
 
 /// Displays row of adaptive actions.
 class ActionSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-
   /// Creates an ActionSet widget.
   ActionSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
@@ -34,7 +33,10 @@ class _ActionSetState extends State<ActionSet> with AdaptiveElementMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(spacing: 8.0, children: actions);
+    return Wrap(
+      spacing: 8.0,
+      children: actions,
+    );
   }
 
   Widget _getAction(Map<String, dynamic> map) {
