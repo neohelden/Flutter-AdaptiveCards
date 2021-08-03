@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_cards/src/elements/image/cross_network_image.dart';
 
 import '../../base.dart';
 
@@ -41,9 +42,9 @@ class _IconButtonActionState extends State<IconButtonAction>
     if (iconUrl != null) {
       result = ElevatedButton.icon(
         onPressed: onTapped,
-        icon: Image.network(
-          iconUrl!,
-          height: 36.0,
+        icon: CrossNetworkImage(
+          url: iconUrl!,
+          height: 32.0,
         ),
         label: Text(title!),
       );
