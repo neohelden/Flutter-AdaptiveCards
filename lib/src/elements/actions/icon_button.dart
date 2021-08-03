@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/src/elements/image/cross_network_image.dart';
 
 import '../../base.dart';
+import '../image/cross_network_image.dart';
 
 /// An icon button for actions.
 class IconButtonAction extends StatefulWidget with AdaptiveElementWidgetMixin {

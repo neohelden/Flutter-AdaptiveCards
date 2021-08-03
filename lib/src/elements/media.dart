@@ -1,11 +1,11 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/src/elements/image/cross_network_image.dart';
 import 'package:video_player/video_player.dart';
 
 import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
+import 'image/cross_network_image.dart';
 
 /// Display a media player.
 class AdaptiveMedia extends StatefulWidget with AdaptiveElementWidgetMixin {

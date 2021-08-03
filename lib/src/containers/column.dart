@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_cards/src/elements/image/cross_network_image.dart';
 
 import '../additional.dart';
 import '../base.dart';
+import '../elements/image/cross_network_image.dart';
 import '../utils.dart';
 
 /// Displays multiple AdaptiveElements in a column.
 class AdaptiveColumn extends StatefulWidget with AdaptiveElementWidgetMixin {
-
   /// Creates an AdaptiveColumn widget.
   AdaptiveColumn({
     Key? key,
@@ -26,7 +25,6 @@ class AdaptiveColumn extends StatefulWidget with AdaptiveElementWidgetMixin {
 
 class _AdaptiveColumnState extends State<AdaptiveColumn>
     with AdaptiveElementMixin {
-
   late List<Widget> items;
 
   /// Can be "auto", "stretch" or "weighted"
