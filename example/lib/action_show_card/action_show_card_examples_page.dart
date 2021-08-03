@@ -16,7 +16,7 @@ class ActionShowCardPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/action_show_card/example1"),
+          DemoAdaptiveCard("lib/action_show_card/example1.json"),
         ],
       ),
     );

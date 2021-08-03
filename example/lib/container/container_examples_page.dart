@@ -16,11 +16,11 @@ class ContainerPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/container/example1"),
-          DemoAdaptiveCard("lib/container/example2"),
-          DemoAdaptiveCard("lib/container/example3"),
-          DemoAdaptiveCard("lib/container/example4"),
-          DemoAdaptiveCard("lib/container/example5"),
+          DemoAdaptiveCard("lib/container/example1.json"),
+          DemoAdaptiveCard("lib/container/example2.json"),
+          DemoAdaptiveCard("lib/container/example3.json"),
+          DemoAdaptiveCard("lib/container/example4.json"),
+          DemoAdaptiveCard("lib/container/example5.json"),
         ],
       ),
     );

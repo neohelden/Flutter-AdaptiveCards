@@ -1,0 +1,22 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Width set in pixels"
+    },
+    {
+      "type": "Image",
+      "url": "https://tse3.mm.bing.net/th?q=African+Wildcat&pid=Api&mkt=en-US&adlt=moderate&t=1",
+      "width": "100px",
+      "selectAction": {
+        "type": "Action.Submit",
+        "data": {
+          "image": "cat"
+        }
+      }
+    }
+  ]
+}

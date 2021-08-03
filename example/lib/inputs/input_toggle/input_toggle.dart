@@ -16,7 +16,7 @@ class InputTogglePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/inputs/input_toggle/example1"),
+          DemoAdaptiveCard("lib/inputs/input_toggle/example1.json"),
         ],
       ),
     );

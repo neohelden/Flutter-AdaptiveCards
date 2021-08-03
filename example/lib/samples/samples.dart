@@ -19,11 +19,11 @@ class SamplesPage extends StatelessWidget {
         itemBuilder: (context, index) {
           if (index == 0) {
             return DemoAdaptiveCard(
-              "lib/samples/example${index + 1}",
+              "lib/samples/example${index + 1}.json",
               supportMarkdown: false,
             );
           }
-          return DemoAdaptiveCard("lib/samples/example${index + 1}");
+          return DemoAdaptiveCard("lib/samples/example${index + 1}.json");
         },
       ),
     );

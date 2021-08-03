@@ -32,11 +32,8 @@ flutter:
 
   assets:
     - assets/
-    - lib/easy_card
-    - lib/adaptive_card_string
-    - lib/host_config_dark
-    - lib/host_config_light
-    - lib/activity_update
+    - lib/host_config_dark.json
+    - lib/host_config_light.json
     - lib/text_block/
     - lib/image/
     - lib/container/
@@ -54,7 +51,7 @@ flutter:
     - lib/inputs/input_time/
     - lib/inputs/input_toggle/
     - lib/inputs/input_choice_set/
-    - lib/media/example1
+    - lib/media/
     - lib/samples/
 
 publish_to: none

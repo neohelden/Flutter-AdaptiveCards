@@ -1,0 +1,55 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Column background image"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "backgroundImage": {
+            "url": "https://messagecardplayground.azurewebsites.net/assets/TxP_Background.png"
+          },
+          "items": [
+            {
+              "text": "Blue",
+              "type": "TextBlock"
+            }
+          ]
+        },
+        {
+          "width": "stretch",
+          "type": "Column",
+          "items": [
+            {
+              "text": "White",
+              "type": "TextBlock"
+            }
+          ]
+        },
+        {
+          "width": "stretch",
+          "type": "Column",
+          "style": "emphasis",
+          "backgroundImage": {
+            "url": "https://messagecardplayground.azurewebsites.net/assets/TxP_Background.png"
+          },
+          "items": [
+            {
+              "text": "Blue",
+              "type": "TextBlock"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2"
+}
