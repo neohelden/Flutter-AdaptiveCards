@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_cards/src/elements/image/cross_network_image.dart';
 
 import '../additional.dart';
 import '../base.dart';
@@ -184,9 +185,9 @@ class _AdaptiveColumnState extends State<AdaptiveColumn>
       }
 
       if (backgroundImageUrl != null) {
-        return Image(
+        return CrossNetworkImage(
           repeat: repeat,
-          image: NetworkImage(backgroundImageUrl),
+          url: backgroundImageUrl,
           fit: fit,
         );
       }
