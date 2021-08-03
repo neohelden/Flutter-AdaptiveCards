@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../base.dart';
-import 'actions/open_url.dart';
-import 'actions/show_card.dart';
-import 'actions/submit.dart';
-import 'unknown.dart';
+import '../../base.dart';
+import '../unknown.dart';
+import 'open_url.dart';
+import 'show_card.dart';
+import 'submit.dart';
 
 /// Displays row of adaptive actions.
 class ActionSet extends StatefulWidget with AdaptiveElementWidgetMixin {
-
   /// Creates an ActionSet widget.
   ActionSet({Key? key, required this.adaptiveMap}) : super(key: key);
 
