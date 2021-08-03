@@ -5,10 +5,10 @@ import 'package:video_player/video_player.dart';
 import '../additional.dart';
 import '../base.dart';
 import '../utils.dart';
+import 'image/cross_network_image.dart';
 
 /// Display a media player.
 class AdaptiveMedia extends StatefulWidget with AdaptiveElementWidgetMixin {
-
   /// Creates an AdaptiveMedia widget.
   AdaptiveMedia({Key? key, required this.adaptiveMap}) : super(key: key);
 
@@ -24,7 +24,7 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
   ChewieController? controller;
 
   String? sourceUrl;
-  String? postUrl;
+  String? posterUrl;
   String? altText;
 
   FadeAnimation imageFadeAnim = FadeAnimation(
@@ -35,7 +35,7 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
   void initState() {
     super.initState();
 
-    postUrl = adaptiveMap["poster"];
+    posterUrl = adaptiveMap["poster"];
     sourceUrl = adaptiveMap["sources"][0]["url"];
     initializePlayer();
   }
@@ -71,7 +71,8 @@ class _AdaptiveMediaState extends State<AdaptiveMedia>
     }
 
     Widget getPlaceholder() {
-      return postUrl != null ? Image.network(postUrl!) : Container();
+      if (posterUrl != null) return CrossNetworkImage(url: posterUrl!);
+      return Container();
     }
 
     return SeparatorElement(

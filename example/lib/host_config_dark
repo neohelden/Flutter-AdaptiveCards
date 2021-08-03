@@ -110,8 +110,8 @@
 			"style": "emphasis"
 		},
 		"preExpandSingleShowCardAction": false,
-		"actionsOrientation": "Horizontal",
-		"actionAlignment": "Left"
+		"actionsOrientation": "Vertical",
+        "actionAlignment": "Center"
 	},
 	"adaptiveCard": {
 		"allowCustomStyle": false

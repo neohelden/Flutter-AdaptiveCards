@@ -36,6 +36,34 @@
                               }
                             ]
                           }
+                },
+                {
+                    "title": "Action.Submit 2",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.OpenUrl 2",
+                    "type": "Action.OpenUrl",
+                    "url": "https://adaptivecards.io/"
+                },
+                {
+                    "title": "Action.ShowCard 2",
+                    "type": "Action.ShowCard",
+                    "card": {
+                            "type": "AdaptiveCard",
+                            "body": [
+                              {
+                                "type": "TextBlock",
+                                "text": "What do you think?"
+                              }
+                            ],
+                            "actions": [
+                              {
+                                "type": "Action.Submit",
+                                "title": "Neat!"
+                              }
+                            ]
+                          }
                 }
             ]
         }

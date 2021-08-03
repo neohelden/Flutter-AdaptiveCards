@@ -17,6 +17,9 @@ dependencies:
   ## Localization
   intl: ^0.17.0
 
+  # To be able to import dart:html on mobile platforms.
+  universal_html: ^2.0.8
+
   # Content
   ## Video player with controls
   chewie: ^1.0.0
