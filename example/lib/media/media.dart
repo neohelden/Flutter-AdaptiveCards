@@ -16,7 +16,7 @@ class MediaPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/media/example1.json"),
+          DemoAdaptiveCard("lib/media/poster_and_mp4.json"),
         ],
       ),
     );

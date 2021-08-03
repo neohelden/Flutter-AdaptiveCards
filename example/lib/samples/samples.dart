@@ -14,17 +14,24 @@ class SamplesPage extends StatelessWidget {
           BrightnessSwitch(),
         ],
       ),
-      body: ListView.builder(
-        itemCount: 15,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return DemoAdaptiveCard(
-              "lib/samples/example${index + 1}.json",
-              supportMarkdown: false,
-            );
-          }
-          return DemoAdaptiveCard("lib/samples/example${index + 1}.json");
-        },
+      body: ListView(
+        children: [
+          DemoAdaptiveCard("lib/samples/activity_update.json"),
+          DemoAdaptiveCard("lib/samples/calender_reminder.json"),
+          DemoAdaptiveCard("lib/samples/flight_itinerary.json"),
+          DemoAdaptiveCard("lib/samples/flight_update.json"),
+          DemoAdaptiveCard("lib/samples/food_order.json"),
+          DemoAdaptiveCard("lib/samples/image_gallery.json"),
+          DemoAdaptiveCard("lib/samples/input_form.json"),
+          DemoAdaptiveCard("lib/samples/inputs.json"),
+          DemoAdaptiveCard("lib/samples/restaurant.json"),
+          DemoAdaptiveCard("lib/samples/spider.json"),
+          DemoAdaptiveCard("lib/samples/sporting_event.json"),
+          DemoAdaptiveCard("lib/samples/stock_update.json"),
+          DemoAdaptiveCard("lib/samples/weather_compact.json"),
+          DemoAdaptiveCard("lib/samples/weather_large.json"),
+          DemoAdaptiveCard("lib/samples/product_video.json"),
+        ],
       ),
     );
   }

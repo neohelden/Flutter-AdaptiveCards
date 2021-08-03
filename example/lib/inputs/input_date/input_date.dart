@@ -16,7 +16,7 @@ class InputDatePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/inputs/input_date/example1.json"),
+          DemoAdaptiveCard("lib/inputs/input_date/placeholder_and_value.json"),
         ],
       ),
     );

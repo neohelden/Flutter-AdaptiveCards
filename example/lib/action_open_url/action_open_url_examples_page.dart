@@ -16,8 +16,8 @@ class ActionOpenUrlPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/action_open_url/example1.json"),
-          DemoAdaptiveCard("lib/action_open_url/example2.json"),
+          DemoAdaptiveCard("lib/action_open_url/default.json"),
+          DemoAdaptiveCard("lib/action_open_url/with_icon.json"),
         ],
       ),
     );

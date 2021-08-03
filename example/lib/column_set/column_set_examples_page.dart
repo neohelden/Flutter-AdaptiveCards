@@ -16,26 +16,12 @@ class ColumnSetPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/column_set/example1.json"),
-          DemoAdaptiveCard("lib/column_set/example2.json"),
-          DemoAdaptiveCard("lib/column_set/example3.json"),
-          DemoAdaptiveCard("lib/column_set/example4.json"),
-          DemoAdaptiveCard(
-            "lib/column_set/example5.json",
-            supportMarkdown: false,
-          ),
-          DemoAdaptiveCard(
-            "lib/column_set/example6.json",
-            supportMarkdown: false,
-          ),
-          DemoAdaptiveCard("lib/column_set/example7.json"),
-          DemoAdaptiveCard("lib/column_set/example8.json"),
-          DemoAdaptiveCard("lib/column_set/example9.json"),
-          DemoAdaptiveCard("lib/column_set/example10.json"),
-          DemoAdaptiveCard(
-            "lib/column_set/column_width_in_pixels.json",
-            supportMarkdown: false,
-          ),
+          DemoAdaptiveCard("lib/column_set/default.json"),
+          DemoAdaptiveCard("lib/column_set/spacing.json"),
+          DemoAdaptiveCard("lib/column_set/separator.json"),
+          DemoAdaptiveCard("lib/column_set/horizontalAlignment_left.json"),
+          DemoAdaptiveCard("lib/column_set/horizontalAlignment_center.json"),
+          DemoAdaptiveCard("lib/column_set/horizontalAlignment_right.json"),
         ],
       ),
     );
