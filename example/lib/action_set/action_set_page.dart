@@ -16,7 +16,8 @@ class ActionSetPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/action_set/example1"),
+          DemoAdaptiveCard("lib/action_set/all_actions_example"),
+          DemoAdaptiveCard("lib/action_set/wrap_example"),
         ],
       ),
     );
