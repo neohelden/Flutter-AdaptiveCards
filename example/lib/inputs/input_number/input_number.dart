@@ -17,7 +17,7 @@ class InputNumber extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           DemoAdaptiveCard(
-            "lib/inputs/input_number/min_mac_value_and_placeholder.json",
+            "lib/inputs/input_number/min_max_value_and_placeholder.json",
           ),
         ],
       ),
