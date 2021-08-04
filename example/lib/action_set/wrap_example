@@ -1,0 +1,53 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "ActionSet wrap example",
+            "wrap": true
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "title": "Action.Submit 0",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 1",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 2",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 3",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 4",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 5",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 6",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 7",
+                    "type": "Action.Submit"
+                },
+                {
+                    "title": "Action.Submit 8",
+                    "type": "Action.Submit"
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2"
+}

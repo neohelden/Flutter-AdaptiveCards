@@ -60,7 +60,7 @@ class _DemoAdaptiveCardState extends State<DemoAdaptiveCard>
                   assetPath: widget.assetPath,
                   listView: false,
                   hostConfigPath:
-                  isLight ? "lib/host_config_light.json" : "lib/host_config_dark.json",
+                  isLight ? "lib/host_config_light" : "lib/host_config_dark",
                   showDebugJson: false,
                   hostConfig: widget.hostConfig,
                   supportMarkdown: false,

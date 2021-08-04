@@ -27,6 +27,11 @@ class CrossNetworkImage extends StatefulWidget {
   /// Callback function returning the scaled height the image is shown with.
   final Function(double)? scaledHeightLoaded;
 
+  /// How to paint any portions of the layout bounds not covered by the image.
+  ///
+  /// Doesn't work on the web.
+  final ImageRepeat repeat;
+
   /// Creates a [CrossNetworkImage].
   CrossNetworkImage({
     required this.url,
@@ -34,6 +39,7 @@ class CrossNetworkImage extends StatefulWidget {
     this.width,
     this.height,
     this.scaledHeightLoaded,
+    this.repeat = ImageRepeat.noRepeat,
   });
 
   @override
@@ -57,7 +63,6 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
 
   @override
   void initState() {
-
     if (kIsWeb) {
       if (imageSizeNotifier.contains(widget.url)) {
         _naturalHeight = imageSizeNotifier.getHeightFor(widget.url);
@@ -126,6 +131,7 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
         fit: widget.fit,
         width: widget.width,
         height: widget.height,
+        repeat: widget.repeat,
       );
     }
   }
@@ -201,7 +207,7 @@ class _CrossNetworkImageState extends State<CrossNetworkImage> {
       if (_hasNaturalSize()) {
         return sizedAspectRatioBox(
           width: widget.width!,
-          height:  _scaledHeight ?? 1,
+          height: _scaledHeight ?? 1,
           child: htmlImage,
         );
       } else {

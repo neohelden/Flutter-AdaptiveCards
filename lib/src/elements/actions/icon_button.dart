@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../base.dart';
+import '../image/cross_network_image.dart';
 
 /// An icon button for actions.
 class IconButtonAction extends StatefulWidget with AdaptiveElementWidgetMixin {
@@ -41,9 +42,9 @@ class _IconButtonActionState extends State<IconButtonAction>
     if (iconUrl != null) {
       result = ElevatedButton.icon(
         onPressed: onTapped,
-        icon: Image.network(
-          iconUrl!,
-          height: 36.0,
+        icon: CrossNetworkImage(
+          url: iconUrl!,
+          height: 32.0,
         ),
         label: Text(title!),
       );
