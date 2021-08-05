@@ -16,8 +16,8 @@ class InputTimePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/inputs/input_time/example1"),
-          DemoAdaptiveCard("lib/inputs/input_time/example2"),
+          DemoAdaptiveCard("lib/inputs/input_time/min_max_and_value.json"),
+          DemoAdaptiveCard("lib/inputs/input_time/min_and_max.json"),
         ],
       ),
     );

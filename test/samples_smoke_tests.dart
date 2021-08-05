@@ -14,7 +14,7 @@ void main() {
     testWidgets('sample$i smoke test', (tester) async {
       final binding = tester.binding as AutomatedTestWidgetsFlutterBinding;
       binding.addTime(Duration(seconds: 10));
-      var widget = getWidget('example$i', 'host_config');
+      var widget = getWidget('example$i', 'host_config.json');
 
       // 8 is pretty big, we need to wrap in in a scrollable
       // and 15 is resizing.

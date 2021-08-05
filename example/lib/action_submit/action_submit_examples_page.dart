@@ -16,7 +16,9 @@ class ActionSubmitPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          DemoAdaptiveCard("lib/action_submit/example1"),
+          DemoAdaptiveCard(
+            "lib/action_submit/for_text_input.json",
+          ),
         ],
       ),
     );
